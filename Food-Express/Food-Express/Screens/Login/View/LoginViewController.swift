@@ -28,5 +28,8 @@ final class LoginViewController: UIViewController {
     @IBAction func loginBtnClicked(_ sender: Any) {
     }
     @IBAction func signupBtnClicked(_ sender: Any) {
+        let nextVC = SignUpViewController(nibName: "SignUpViewController", bundle: nil)
+        nextVC.modalPresentationStyle = .popover
+        self.present(nextVC, animated: true)
     }
 }
