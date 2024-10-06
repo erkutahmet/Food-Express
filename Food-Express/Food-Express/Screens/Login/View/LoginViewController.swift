@@ -26,6 +26,9 @@ final class LoginViewController: UIViewController {
         loginBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
     @IBAction func loginBtnClicked(_ sender: Any) {
+        let mainVC = TabBarViewController()
+        mainVC.modalPresentationStyle = .fullScreen
+        self.present(mainVC, animated: true)
     }
     @IBAction func signupBtnClicked(_ sender: Any) {
         let nextVC = SignUpViewController(nibName: "SignUpViewController", bundle: nil)
