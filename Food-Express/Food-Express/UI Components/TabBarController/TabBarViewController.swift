@@ -37,9 +37,9 @@ final class TabBarViewController: UITabBarController {
                                     image: UIImage(systemName: "tray"),
                                     selectedImage: UIImage(systemName: "tray.fill"))
 
-        infoVC.tabBarItem = UITabBarItem(title: "Info",
-                                    image: UIImage(systemName: "info.circle"),
-                                    selectedImage: UIImage(systemName: "info.circle.fill"))
+        infoVC.tabBarItem = UITabBarItem(title: "Settings",
+                                    image: UIImage(systemName: "gearshape"),
+                                    selectedImage: UIImage(systemName: "gearshape.fill"))
 
         let nav1 = UINavigationController(rootViewController: homeVC)
         let nav2 = UINavigationController(rootViewController: favoritesVC)
