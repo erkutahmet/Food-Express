@@ -27,7 +27,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="780"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-lO-zrl">
-                                    <rect key="frame" x="36" y="148.66666666666666" width="321" height="52"/>
+                                    <rect key="frame" x="36" y="136.66666666666666" width="321" height="52"/>
                                     <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="52" id="TZy-Ik-mUt"/>
@@ -36,7 +36,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOOD EXPRESS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frv-cO-mFT">
-                                    <rect key="frame" x="36" y="32.000000000000007" width="152" height="76.666666666666686"/>
+                                    <rect key="frame" x="36" y="20" width="152" height="76.666666666666657"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="152" id="pG1-qS-7oU"/>
                                     </constraints>
@@ -45,7 +45,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eOB-R2-D9F">
-                                    <rect key="frame" x="36" y="264.66666666666669" width="357" height="200"/>
+                                    <rect key="frame" x="36" y="252.66666666666669" width="357" height="200"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="3Mv-wl-IyA"/>
@@ -59,7 +59,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aboutUs" translatesAutoresizingMaskIntoConstraints="NO" id="7US-DJ-aKX">
-                                    <rect key="frame" x="36" y="520.66666666666663" width="321" height="212"/>
+                                    <rect key="frame" x="36" y="508.66666666666663" width="321" height="212"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="212" id="Gr4-Mz-b0O"/>
                                     </constraints>
@@ -70,7 +70,7 @@
                                 <constraint firstItem="7US-DJ-aKX" firstAttribute="top" secondItem="eOB-R2-D9F" secondAttribute="bottom" constant="56" id="8SK-ft-Vnk"/>
                                 <constraint firstItem="7US-DJ-aKX" firstAttribute="leading" secondItem="bZM-lO-zrl" secondAttribute="leading" id="H8U-mf-93p"/>
                                 <constraint firstItem="Frv-cO-mFT" firstAttribute="leading" secondItem="AAo-j7-5Af" secondAttribute="leading" constant="36" id="Nyj-JA-1MP"/>
-                                <constraint firstItem="Frv-cO-mFT" firstAttribute="top" secondItem="AAo-j7-5Af" secondAttribute="top" constant="32" id="Re1-Wr-Tkz"/>
+                                <constraint firstItem="Frv-cO-mFT" firstAttribute="top" secondItem="AAo-j7-5Af" secondAttribute="top" constant="20" id="Re1-Wr-Tkz"/>
                                 <constraint firstItem="bZM-lO-zrl" firstAttribute="leading" secondItem="AAo-j7-5Af" secondAttribute="leading" constant="36" id="TMW-Ic-lzm"/>
                                 <constraint firstItem="eOB-R2-D9F" firstAttribute="top" secondItem="bZM-lO-zrl" secondAttribute="bottom" constant="64" id="Xsc-oZ-FQc"/>
                                 <constraint firstItem="bZM-lO-zrl" firstAttribute="top" secondItem="Frv-cO-mFT" secondAttribute="bottom" constant="40" id="aLD-cR-Fen"/>
