@@ -17,7 +17,6 @@ final class MainPageViewController: UIViewController {
 
     @IBOutlet private weak var searchTextField: UITextField!
     @IBOutlet private weak var foodCollectionView: UICollectionView!
-    @IBOutlet private weak var aboutUsImageView: UIImageView!
 
     private lazy var viewModel = HomeViewModel()
 
@@ -25,18 +24,10 @@ final class MainPageViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(aboutUsTapped))
-        aboutUsImageView.addGestureRecognizer(tapGesture)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         viewModel.viewWillAppear()
-    }
-    
-    @objc func aboutUsTapped() {
-        let aboutVC = AboutUsViewController(nibName: "AboutUsViewController", bundle: nil)
-        aboutVC.modalPresentationStyle = .pageSheet
-        self.present(aboutVC, animated: true)
     }
 }
 
@@ -61,7 +52,7 @@ extension MainPageViewController: UICollectionViewDelegate {
 
 extension MainPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: collectionView.frame.width / 2.5, height: collectionView.frame.height)
+        .init(width: collectionView.frame.width / 2.1, height: collectionView.frame.height / 2.1)
     }
 }
 

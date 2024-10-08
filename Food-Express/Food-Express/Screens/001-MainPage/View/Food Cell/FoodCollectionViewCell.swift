@@ -13,7 +13,8 @@ class FoodCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var foodNameLbl: UILabel!
     @IBOutlet weak var foodPriceLbl: UILabel!
     @IBOutlet weak var priceSymbolLbl: UILabel!
-    
+    @IBOutlet weak var foodBackView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
