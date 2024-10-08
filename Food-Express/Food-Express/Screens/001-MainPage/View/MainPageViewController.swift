@@ -10,6 +10,7 @@ import UIKit
 protocol HomeViewInterface: AnyObject {
     func setUIForSearch()
     func setDelegateUI()
+    func setDarkModeUI()
 }
 
 final class MainPageViewController: UIViewController {
@@ -26,6 +27,10 @@ final class MainPageViewController: UIViewController {
         viewModel.viewDidLoad()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(aboutUsTapped))
         aboutUsImageView.addGestureRecognizer(tapGesture)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear()
     }
     
     @objc func aboutUsTapped() {
@@ -65,6 +70,15 @@ extension MainPageViewController: HomeViewInterface {
         foodCollectionView.delegate = self
         foodCollectionView.dataSource = self
         foodCollectionView.register(UINib(nibName: "FoodCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "foodCell")
+    }
+
+    func setDarkModeUI() {
+        let sharedUserInterfaceStyle = UserDefaults.standard.string(forKey: "userInterfaceStyle") ?? "light"
+        if sharedUserInterfaceStyle == "dark" {
+            searchTextField.backgroundColor = .darkGray
+        } else {
+            searchTextField.backgroundColor = UIColor(hex: "F4F4F4")
+        }
     }
     
     func setUIForSearch() {

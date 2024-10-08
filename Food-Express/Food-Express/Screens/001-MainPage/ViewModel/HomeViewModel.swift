@@ -11,6 +11,7 @@ protocol HomeViewModelInterface {
     var view: HomeViewInterface? { get set }
 
     func viewDidLoad()
+    func viewWillAppear()
 }
 
 final class HomeViewModel {
@@ -21,5 +22,9 @@ extension HomeViewModel: HomeViewModelInterface {
     func viewDidLoad() {
         view?.setUIForSearch()
         view?.setDelegateUI()
+    }
+
+    func viewWillAppear() {
+        view?.setDarkModeUI()
     }
 }
