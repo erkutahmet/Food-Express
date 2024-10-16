@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol CategoriesCellInterface {
+    func setUpCell(item: String)
+    static var identifier: String { get }
+    static func register() -> UINib
+}
+
 class CategoriesCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var categoryImageView: UIImageView!
@@ -14,7 +20,21 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.layer.cornerRadius = 16
+    }
+}
+
+extension CategoriesCollectionViewCell: CategoriesCellInterface {
+    static var identifier: String {
+        return "categoryCell"
+    }
+    
+    static func register() -> UINib {
+        UINib(nibName: "CategoriesCollectionViewCell", bundle: nil)
     }
 
+    func setUpCell(item: String) {
+        self.categoryNameLbl.text = item
+        self.categoryImageView.image = UIImage(named: item)
+    }
 }

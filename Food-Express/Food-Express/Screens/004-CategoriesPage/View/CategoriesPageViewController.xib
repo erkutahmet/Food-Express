@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoriesPageViewController" customModule="Food_Express" customModuleProvider="target">
             <connections>
-                <outlet property="categoriesCollectionView" destination="3gK-GM-ThV" id="iKX-E4-sJz"/>
+                <outlet property="categoriesCollectionView" destination="3gK-GM-ThV" id="Pgs-CB-JXc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
