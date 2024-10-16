@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC8ACD692CB6055900790618 /* Alamofire */; };
+		DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DCC578712CB8061600CC5D4C /* AlamofireImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */,
+				DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = "Food-Express";
 			packageProductDependencies = (
 				DC8ACD692CB6055900790618 /* Alamofire */,
+				DCC578712CB8061600CC5D4C /* AlamofireImage */,
 			);
 			productName = "Food-Express";
 			productReference = DCDC62F42CB21B6700D51E16 /* Food-Express.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DCDC62F52CB21B6700D51E16 /* Products */;
@@ -354,6 +358,14 @@
 				minimumVersion = 5.9.1;
 			};
 		};
+		DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -361,6 +373,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		DCC578712CB8061600CC5D4C /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

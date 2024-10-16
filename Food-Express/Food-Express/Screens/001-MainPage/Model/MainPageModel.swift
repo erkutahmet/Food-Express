@@ -8,8 +8,8 @@
 import Foundation
 
 struct MainPageModel: Codable {
-    let yemekler: [Yemekler]?
-    let success: Int?
+    let yemekler: [Yemekler]
+    let success: Int
 }
 
 struct Yemekler: Codable {

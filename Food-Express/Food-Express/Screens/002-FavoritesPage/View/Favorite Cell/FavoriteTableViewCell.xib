@@ -51,11 +51,11 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your most favorite." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cWk-HL-QSh">
                                         <rect key="frame" x="108.33333333333334" y="73.999999999999986" width="91.333333333333343" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" name="darkModeSpecial2"/>
+                                <color key="backgroundColor" name="darkModeSpecial"/>
                                 <constraints>
                                     <constraint firstItem="xnz-Ys-Bos" firstAttribute="leading" secondItem="5oH-zh-gMW" secondAttribute="leading" constant="24" id="52y-ee-5R0"/>
                                     <constraint firstItem="cWk-HL-QSh" firstAttribute="centerX" secondItem="5oH-zh-gMW" secondAttribute="centerX" id="5Xe-8M-mIw"/>
@@ -110,17 +110,14 @@
     <resources>
         <image name="AboutUs" width="326" height="212"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <namedColor name="darkModeSpecial2">
-            <color red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="darkModeSpecial">
+            <color red="0.98000001907348633" green="0.98000001907348633" blue="0.98000001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

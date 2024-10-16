@@ -10,9 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainPageViewController" customModule="Food_Express" customModuleProvider="target">
             <connections>
-                <outlet property="foodCollectionView" destination="eOB-R2-D9F" id="Tfu-IK-NB8"/>
-                <outlet property="searchTextField" destination="bZM-lO-zrl" id="6vR-Eh-DU8"/>
-                <outlet property="view" destination="F1T-4z-beC" id="PpQ-O5-DYG"/>
+                <outlet property="foodCollectionView" destination="eOB-R2-D9F" id="RKB-LX-ziV"/>
+                <outlet property="searchTextField" destination="bZM-lO-zrl" id="A3X-Wf-xkV"/>
+                <outlet property="view" destination="F1T-4z-beC" id="kg0-Dn-4AR"/>
             </connections>
         </placeholder>
         <view contentMode="scaleToFill" id="F1T-4z-beC">
@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOOD EXPRESS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frv-cO-mFT">
-                    <rect key="frame" x="36" y="79" width="152" height="76.666666666666686"/>
+                    <rect key="frame" x="36" y="67" width="152" height="76.666666666666686"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="152" id="pG1-qS-7oU"/>
                     </constraints>
@@ -29,16 +29,19 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bZM-lO-zrl">
-                    <rect key="frame" x="36" y="195.66666666666666" width="321" height="52"/>
+                    <rect key="frame" x="36" y="167.66666666666666" width="321" height="52"/>
                     <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="52" id="TZy-Ik-mUt"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="searchHandler:" destination="-1" eventType="editingChanged" id="XcX-X0-g4Q"/>
+                    </connections>
                 </textField>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eOB-R2-D9F">
-                    <rect key="frame" x="32" y="287.66666666666669" width="329" height="518.33333333333326"/>
+                    <rect key="frame" x="32" y="247.66666666666669" width="329" height="558.33333333333326"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Bty-sJ-NXz">
                         <size key="itemSize" width="128" height="128"/>
@@ -54,9 +57,9 @@
                 <constraint firstItem="1Hz-UO-xNa" firstAttribute="trailing" secondItem="eOB-R2-D9F" secondAttribute="trailing" constant="32" id="2m2-ai-wta"/>
                 <constraint firstItem="1Hz-UO-xNa" firstAttribute="trailing" secondItem="bZM-lO-zrl" secondAttribute="trailing" constant="36" id="Jwp-6D-S2L"/>
                 <constraint firstItem="bZM-lO-zrl" firstAttribute="leading" secondItem="1Hz-UO-xNa" secondAttribute="leading" constant="36" id="P0P-76-G7F"/>
-                <constraint firstItem="eOB-R2-D9F" firstAttribute="top" secondItem="bZM-lO-zrl" secondAttribute="bottom" constant="40" id="XOi-rD-Cc7"/>
-                <constraint firstItem="bZM-lO-zrl" firstAttribute="top" secondItem="Frv-cO-mFT" secondAttribute="bottom" constant="40" id="XbT-uJ-vDl"/>
-                <constraint firstItem="Frv-cO-mFT" firstAttribute="top" secondItem="1Hz-UO-xNa" secondAttribute="top" constant="20" id="aWU-y3-jFd"/>
+                <constraint firstItem="eOB-R2-D9F" firstAttribute="top" secondItem="bZM-lO-zrl" secondAttribute="bottom" constant="28" id="XOi-rD-Cc7"/>
+                <constraint firstItem="bZM-lO-zrl" firstAttribute="top" secondItem="Frv-cO-mFT" secondAttribute="bottom" constant="24" id="XbT-uJ-vDl"/>
+                <constraint firstItem="Frv-cO-mFT" firstAttribute="top" secondItem="1Hz-UO-xNa" secondAttribute="top" constant="8" id="aWU-y3-jFd"/>
                 <constraint firstItem="Frv-cO-mFT" firstAttribute="leading" secondItem="1Hz-UO-xNa" secondAttribute="leading" constant="36" id="ecY-G1-WyO"/>
                 <constraint firstItem="eOB-R2-D9F" firstAttribute="leading" secondItem="1Hz-UO-xNa" secondAttribute="leading" constant="32" id="iRe-Fb-R3Y"/>
                 <constraint firstItem="1Hz-UO-xNa" firstAttribute="bottom" secondItem="eOB-R2-D9F" secondAttribute="bottom" constant="12" id="uJf-7L-33W"/>

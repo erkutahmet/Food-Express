@@ -6,19 +6,26 @@
 //
 
 import UIKit
+import AlamofireImage
 
-protocol HomeViewInterface: AnyObject {
+protocol MainViewInterface: AnyObject {
     func setUIForSearch()
     func setDelegateUI()
     func setDarkModeUI()
+    func reloadData()
+    func bindViewModel()
+    func openDetail(id foodId: String)
+    func setupTapGesture()
 }
 
 final class MainPageViewController: UIViewController {
-
+    
     @IBOutlet private weak var searchTextField: UITextField!
     @IBOutlet private weak var foodCollectionView: UICollectionView!
-
-    private lazy var viewModel = HomeViewModel()
+    
+    private lazy var viewModel = MainViewModel()
+    private var cellDataSource = [FoodViewModel]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,38 +36,91 @@ final class MainPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewModel.viewWillAppear()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        viewModel.viewDidAppear()
+    }
+    @IBAction func searchHandler(_ sender: UITextField) {
+        guard let searchText = sender.text else { return }
+        if searchText == "" {
+            viewModel.searchHandler(contains: "")
+        } else {
+            viewModel.searchHandler(contains: searchText)
+        }
+        
+    }
 }
 
 extension MainPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "foodCell", for: indexPath) as? FoodCollectionViewCell else { return UICollectionViewCell() }
+        guard indexPath.item < viewModel.numberOfItems(),
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCollectionViewCell.identifier, for: indexPath) as? FoodCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
-        cell.foodImageView.image = UIImage(named: "hamburger")
-        cell.foodNameLbl.text = "Food Name"
-        cell.foodPriceLbl.text = "Price"
+        let food = self.cellDataSource[indexPath.item]
+        
+        cell.setupCellShadowView(index: indexPath.item)
+        cell.setupCell(viewModel: food)
         return cell
     }
 }
 
 extension MainPageViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard indexPath.item < viewModel.numberOfItems() else {
+            return
+        }
+
+        let foodId = cellDataSource[indexPath.row].yemekID
+        openDetail(id: foodId)
+    }
 }
 
 extension MainPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        .init(width: collectionView.frame.width / 2.1, height: collectionView.frame.height / 2.1)
+        .init(width: collectionView.frame.width / 2.1, height: 200)
     }
 }
 
-extension MainPageViewController: HomeViewInterface {
+extension MainPageViewController: MainViewInterface {
+    func openDetail(id foodId: String) {
+        guard let food = viewModel.retriveFood(with: foodId) else { return }
+        let detailFoodViewModel = DetailsFoodViewModel(food: food)
+        let detailFoodViewController = DetailsFoodViewController(viewModel: detailFoodViewModel)
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = .label
+        navigationItem.backBarButtonItem = backItem
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(detailFoodViewController, animated: true)
+        }
+    }
+    
+    func bindViewModel() {
+        viewModel.cellDataSource.bind { [weak self] yemekler in
+            guard let self = self, let foods = yemekler else { return }
+            
+            self.cellDataSource = foods
+            self.reloadData()
+        }
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.foodCollectionView.reloadData()
+        }
+    }
+    
     func setDelegateUI() {
         foodCollectionView.delegate = self
         foodCollectionView.dataSource = self
-        foodCollectionView.register(UINib(nibName: "FoodCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "foodCell")
+        foodCollectionView.register(FoodCollectionViewCell.register(), forCellWithReuseIdentifier: FoodCollectionViewCell.identifier)
     }
 
     func setDarkModeUI() {
@@ -100,6 +160,15 @@ extension MainPageViewController: HomeViewInterface {
     @objc private func clearTextField() {
         searchTextField.text = ""
         searchTextField.endEditing(true)
-        
+    }
+
+    internal func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
