@@ -7,30 +7,33 @@
 
 import UIKit
 
+protocol CategoriesViewInterface: AnyObject {
+    func prepareCollectionView()
+}
+
 final class CategoriesPageViewController: UIViewController {
 
     @IBOutlet private weak var categoriesCollectionView: UICollectionView!
 
+    private lazy var viewModel = CategoriesPageViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        categoriesCollectionView.delegate = self
-        categoriesCollectionView.dataSource = self
-
-        categoriesCollectionView.register(UINib(nibName: "CategoriesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "categoryCell")
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
 }
 
 extension CategoriesPageViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 10 }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        viewModel.numberOfItems()
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.categoryImageView.image = UIImage(named: "aboutUs")
-        cell.categoryNameLbl.text = "Category \(indexPath.row)"
-        cell.layer.cornerRadius = 4
-        cell.categoryImageView.addBlurWithRadius(blurRadius: 5)
-        
+        let item = viewModel.cellForItem(at: indexPath)
+        cell.setUpCell(item: item)
         return cell
     }
 }
@@ -45,4 +48,12 @@ extension CategoriesPageViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 20 }
+}
+
+extension CategoriesPageViewController: CategoriesViewInterface {
+    func prepareCollectionView() {
+        categoriesCollectionView.delegate = self
+        categoriesCollectionView.dataSource = self
+        categoriesCollectionView.register(CategoriesCollectionViewCell.register(), forCellWithReuseIdentifier: CategoriesCollectionViewCell.identifier)
+    }
 }

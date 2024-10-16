@@ -63,7 +63,6 @@ extension MainPageViewController: UICollectionViewDataSource {
         }
         
         let food = self.cellDataSource[indexPath.item]
-        
         cell.setupCellShadowView(index: indexPath.item)
         cell.setupCell(viewModel: food)
         return cell
