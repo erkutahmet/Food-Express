@@ -33,7 +33,7 @@ final class TabBarViewController: UITabBarController {
                                       image: UIImage(systemName: "basket"),
                                       selectedImage: UIImage(systemName: "basket.fill"))
 
-        categoryVC.tabBarItem = UITabBarItem(title: "Tray",
+        categoryVC.tabBarItem = UITabBarItem(title: "Categories",
                                     image: UIImage(systemName: "tray"),
                                     selectedImage: UIImage(systemName: "tray.fill"))
 
