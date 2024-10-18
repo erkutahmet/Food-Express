@@ -40,6 +40,7 @@ final class MainPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         viewModel.viewDidAppear()
     }
+
     @IBAction func searchHandler(_ sender: UITextField) {
         guard let searchText = sender.text else { return }
         if searchText == "" {
@@ -57,6 +58,7 @@ extension MainPageViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         guard indexPath.item < viewModel.numberOfItems(),
               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCollectionViewCell.identifier, for: indexPath) as? FoodCollectionViewCell else {
             return UICollectionViewCell()
@@ -71,12 +73,8 @@ extension MainPageViewController: UICollectionViewDataSource {
 
 extension MainPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard indexPath.item < viewModel.numberOfItems() else {
-            return
-        }
 
-        let foodId = cellDataSource[indexPath.row].yemekID
+        let foodId = cellDataSource[indexPath.item].yemekID
         openDetail(id: foodId)
     }
 }
