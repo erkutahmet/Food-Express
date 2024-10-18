@@ -33,7 +33,7 @@ extension CategoriesPageViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as? CategoriesCollectionViewCell else { return UICollectionViewCell() }
         
         let item = viewModel.cellForItem(at: indexPath)
-        cell.setUpCell(item: item)
+        cell.setUpCell(name: item.0, image: item.1)
         return cell
     }
 }
