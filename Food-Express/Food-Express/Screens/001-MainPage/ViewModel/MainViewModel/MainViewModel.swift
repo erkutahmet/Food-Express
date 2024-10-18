@@ -24,6 +24,8 @@ final class MainViewModel {
     weak var view: MainViewInterface?
     var dataSource: MainPageModel?
     var cellDataSource: Observable<[FoodViewModel]> = Observable(nil)
+
+    private var allFoods: [FoodViewModel] = []
 }
 
 extension MainViewModel: MainViewModelInterface {
@@ -58,7 +60,8 @@ extension MainViewModel: MainViewModelInterface {
         }
     }
     func mapCellData() {
-        self.cellDataSource.value = self.dataSource?.yemekler.compactMap({FoodViewModel(food: $0)})
+        self.allFoods = self.dataSource?.yemekler.compactMap( {FoodViewModel(food: $0)} ) ?? []
+        self.cellDataSource.value = self.allFoods
     }
 
     func retriveFood(with id: String) -> Yemekler? {
@@ -68,14 +71,14 @@ extension MainViewModel: MainViewModelInterface {
     
     func searchHandler(contains searchText: String) {
         guard !searchText.isEmpty else {
-            mapCellData()
+            self.cellDataSource.value = allFoods
             return
         }
         
-        let filteredData = dataSource?.yemekler.filter { food in
-              return food.yemekAdi?.lowercased().contains(searchText.lowercased()) ?? false
+        let filteredData = allFoods.filter { food in
+              return food.yemekAdi.lowercased().contains(searchText.lowercased())
           }
 
-        self.cellDataSource.value = filteredData?.compactMap({ FoodViewModel(food: $0) })
+        self.cellDataSource.value = filteredData
     }
 }
