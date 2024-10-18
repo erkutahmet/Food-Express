@@ -12,12 +12,13 @@ protocol CategoriesPageViewModelInterface {
 
     func viewDidLoad()
     func numberOfItems() -> Int
-    func cellForItem(at indexPath: IndexPath) -> (String)
+    func cellForItem(at indexPath: IndexPath) -> (String, String)
 }
 
 final class CategoriesPageViewModel {
     weak var view: CategoriesViewInterface?
     private let categoryList = ["Appetizers", "Salad", "Soup", "Seafood", "Beef", "Pasta", "Burger", "Pizza"]
+    private let categoryListImage = ["appetizers", "salad", "soup", "seafood", "beef", "pasta", "burger", "pizza"]
 }
 
 extension CategoriesPageViewModel: CategoriesPageViewModelInterface {
@@ -29,7 +30,7 @@ extension CategoriesPageViewModel: CategoriesPageViewModelInterface {
         categoryList.count
     }
 
-    func cellForItem(at indexPath: IndexPath) -> (String) {
-        return categoryList[indexPath.item]
+    func cellForItem(at indexPath: IndexPath) -> (String, String) {
+        return (categoryList[indexPath.item], categoryListImage[indexPath.item])
     }
 }

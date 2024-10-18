@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CategoriesCellInterface {
-    func setUpCell(item: String)
+    func setUpCell(name item: String, image item2: String)
     static var identifier: String { get }
     static func register() -> UINib
 }
@@ -33,8 +33,8 @@ extension CategoriesCollectionViewCell: CategoriesCellInterface {
         UINib(nibName: "CategoriesCollectionViewCell", bundle: nil)
     }
 
-    func setUpCell(item: String) {
+    func setUpCell(name item: String, image item2: String) {
         self.categoryNameLbl.text = item
-        self.categoryImageView.image = UIImage(named: item)
+        self.categoryImageView.image = UIImage(named: item2)
     }
 }
