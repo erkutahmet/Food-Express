@@ -88,7 +88,7 @@ extension MainPageViewController: UICollectionViewDelegateFlowLayout {
 extension MainPageViewController: MainViewInterface {
     func openDetail(id foodId: String) {
         guard let food = viewModel.retriveFood(with: foodId) else { return }
-        let detailFoodViewModel = DetailsFoodViewModel(food: food)
+        let detailFoodViewModel = DetailsFoodModel(food: food)
         let detailFoodViewController = DetailsFoodViewController(viewModel: detailFoodViewModel)
         let backItem = UIBarButtonItem()
         backItem.title = ""
