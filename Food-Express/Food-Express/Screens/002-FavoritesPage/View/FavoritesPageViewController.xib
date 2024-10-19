@@ -26,16 +26,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" rowHeight="212" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jZy-8B-LrI">
-                    <rect key="frame" x="20" y="130" width="353" height="656"/>
+                    <rect key="frame" x="24" y="130" width="345" height="656"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jZy-8B-LrI" secondAttribute="trailing" constant="20" id="DoO-DS-kdS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jZy-8B-LrI" secondAttribute="trailing" constant="24" id="DoO-DS-kdS"/>
                 <constraint firstItem="jZy-8B-LrI" firstAttribute="top" secondItem="2xq-dD-DGG" secondAttribute="bottom" constant="16" id="GoB-si-syl"/>
-                <constraint firstItem="jZy-8B-LrI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="HEo-t1-UoZ"/>
+                <constraint firstItem="jZy-8B-LrI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="HEo-t1-UoZ"/>
                 <constraint firstItem="2xq-dD-DGG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hqz-E5-ieg"/>
                 <constraint firstItem="2xq-dD-DGG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="ktC-OS-JD7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="jZy-8B-LrI" secondAttribute="bottom" constant="32" id="o9o-e0-mhv"/>

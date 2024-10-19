@@ -10,6 +10,7 @@ import UIKit
 final class FavoritesPageViewController: UIViewController {
 
     @IBOutlet private weak var favoritesTableView: UITableView!
+    private var selectedIndices: [Int: Bool] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +35,30 @@ extension FavoritesPageViewController: UITableViewDataSource, UITableViewDelegat
         cell.favoriteImageView.image = UIImage(named: "aboutUs")
         cell.favoriteNameLbl.text = "Hamburger"
         cell.favoriteInfoLbl.text = "Your most favorite."
+        
+        if let isSelected = selectedIndices[indexPath.row] {
+            if isSelected {
+                cell.favoriteHeartImageView.image = UIImage(systemName: "heart")
+                cell.favoriteHeartImageView.tintColor = .black
+            } else {
+                cell.favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
+                cell.favoriteHeartImageView.tintColor = .systemRed
+            }
+        } else {
+            cell.favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
+            cell.favoriteHeartImageView.tintColor = .systemRed
+        }
+        
         return cell
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let favoriteCell = cell as? FavoriteTableViewCell else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            favoriteCell.favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
-            favoriteCell.favoriteHeartImageView.tintColor = .systemRed
-        }
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let isSelected = selectedIndices[indexPath.row] {
+            selectedIndices[indexPath.row] = !isSelected
+        } else {
+            selectedIndices[indexPath.row] = true
+        }
+
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
