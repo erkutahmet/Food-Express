@@ -8,20 +8,25 @@
 import UIKit
 import AlamofireImage
 
+protocol DetailsViewInterface: AnyObject {
+    func configResult()
+    func getParameters() -> AddFoodBasketParameters
+}
+
 final class DetailsFoodViewController: UIViewController {
     
-    private let viewModel: FoodViewModel
+    private let foodViewModel: FoodViewModel
     
     @IBOutlet private weak var foodNameLbl: UILabel!
     @IBOutlet private weak var foodPriceLbl: UILabel!
     @IBOutlet private weak var foodImageView: UIImageView!
     @IBOutlet private weak var amountLbl: UILabel!
     @IBOutlet private weak var favoriteBtn: UIButton!
-
+    private lazy var viewModel = DetailsViewModel()
     private var amount = 1
 
-    init(viewModel: FoodViewModel) {
-        self.viewModel = viewModel
+    init(foodViewModel: FoodViewModel) {
+        self.foodViewModel = foodViewModel
         super.init(nibName: "DetailsFoodViewController", bundle: nil)
     }
     
@@ -31,14 +36,10 @@ final class DetailsFoodViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configResult()
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
     
-    func configResult() {
-        foodNameLbl.text = viewModel.yemekAdi
-        foodPriceLbl.text = viewModel.yemekFiyat
-        foodImageView.af.setImage(withURL: viewModel.imageURL)
-    }
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
         if favoriteBtn.currentImage == UIImage(named: "favorite_unclicked") {
             favoriteBtn.setImage(UIImage(named: "favorite"), for: .normal)
@@ -48,32 +49,35 @@ final class DetailsFoodViewController: UIViewController {
     }
     
     @IBAction private func addToBasketBtnClicked(_ sender: Any) {
-        APICaller.addFoodToBasket(ad: viewModel.yemekAdi, resim: viewModel.yemekResimAdi, fiyat: viewModel.yemekFiyat, adet: String(amount)) { result in
-            switch result {
-            case .success(let data):
-                if data.success == 0 {
-                    // TODO: buraya alert
-                    print("Sepete ekleme işlemi başarısız")
-                } else {
-                    print("Sepete ekleme işlemi başarılı")
-                    self.navigationController?.popViewController(animated: true)
-                }
-            case .failure:
-                print("Error from (addFoodToBasket)")
-            }
-        }
+        viewModel.addFoodToBasket(parameters: getParameters())
     }
 
     @IBAction private func minusBtnClicked(_ sender: Any) {
         if amount > 1 {
             amount -= 1
             amountLbl.text = String(amount)
-            foodPriceLbl.text = String((Int(viewModel.yemekFiyat) ?? 1) * amount)
+            foodPriceLbl.text = String((Int(foodViewModel.yemekFiyat) ?? 1) * amount)
         }
     }
+
     @IBAction private func plusBtnClicked(_ sender: Any) {
         amount += 1
         amountLbl.text = String(amount)
-        foodPriceLbl.text = String((Int(viewModel.yemekFiyat) ?? 1) * amount)
+        foodPriceLbl.text = String((Int(foodViewModel.yemekFiyat) ?? 1) * amount)
+    }
+}
+
+extension DetailsFoodViewController: DetailsViewInterface {
+    func configResult() {
+        foodNameLbl.text = foodViewModel.yemekAdi
+        foodPriceLbl.text = foodViewModel.yemekFiyat
+        foodImageView.af.setImage(withURL: foodViewModel.imageURL)
+    }
+
+    func getParameters() -> AddFoodBasketParameters {
+        AddFoodBasketParameters(yemekAdi: foodViewModel.yemekAdi,
+                          yemekResimAdi: foodViewModel.yemekResimAdi,
+                          yemekFiyat: foodViewModel.yemekFiyat,
+                          yemekSiparisAdet: String(amount))
     }
 }

@@ -32,7 +32,7 @@ final class BasketPageViewController: UIViewController {
         viewModel.viewWillAppear()
     }
 
-    @IBAction func placeOrderBtnClicked(_ sender: Any) {
+    @IBAction private func placeOrderBtnClicked(_ sender: Any) {
     }
 }
 

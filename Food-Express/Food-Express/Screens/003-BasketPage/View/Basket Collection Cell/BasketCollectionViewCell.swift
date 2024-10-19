@@ -20,11 +20,11 @@ protocol BasketCollectionViewCellInterface {
 
 final class BasketCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var basketProductImageView: UIImageView!
-    @IBOutlet weak var basketProductNameLbl: UILabel!
-    @IBOutlet weak var basketProductPriceLbl: UILabel!
-    @IBOutlet weak var basketProductAmountLbl: UILabel!
-    @IBOutlet weak var totalPriceLbl: UILabel!
+    @IBOutlet private weak var basketProductImageView: UIImageView!
+    @IBOutlet private weak var basketProductNameLbl: UILabel!
+    @IBOutlet private weak var basketProductPriceLbl: UILabel!
+    @IBOutlet private weak var basketProductAmountLbl: UILabel!
+    @IBOutlet private weak var totalPriceLbl: UILabel!
     
     weak var delegate: BasketCollectionViewDelegate?
 
@@ -32,7 +32,7 @@ final class BasketCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
-    @IBAction func deleteBtnClicked(_ sender: Any) {
+    @IBAction private func deleteBtnClicked(_ sender: Any) {
         delegate?.didRequestDelete(self)
     }
 }

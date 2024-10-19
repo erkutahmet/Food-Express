@@ -13,10 +13,10 @@ protocol CategoriesCellInterface {
     static func register() -> UINib
 }
 
-class CategoriesCollectionViewCell: UICollectionViewCell {
+final class CategoriesCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var categoryImageView: UIImageView!
-    @IBOutlet weak var categoryNameLbl: UILabel!
+    @IBOutlet private weak var categoryImageView: UIImageView!
+    @IBOutlet private weak var categoryNameLbl: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

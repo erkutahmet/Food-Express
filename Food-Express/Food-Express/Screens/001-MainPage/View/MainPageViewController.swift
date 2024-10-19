@@ -40,7 +40,7 @@ final class MainPageViewController: UIViewController {
         viewModel.viewDidAppear()
     }
 
-    @IBAction func searchHandler(_ sender: UITextField) {
+    @IBAction private func searchHandler(_ sender: UITextField) {
         guard let searchText = sender.text else { return }
         viewModel.searchHandler(contains: searchText)
         
@@ -84,7 +84,7 @@ extension MainPageViewController: MainViewInterface {
     func openDetail(id foodId: String) {
         guard let food = viewModel.retriveFood(with: foodId) else { return }
         let detailFoodViewModel = FoodViewModel(food: food)
-        let detailFoodViewController = DetailsFoodViewController(viewModel: detailFoodViewModel)
+        let detailFoodViewController = DetailsFoodViewController(foodViewModel: detailFoodViewModel)
         let backItem = UIBarButtonItem()
         backItem.title = ""
         backItem.tintColor = .label

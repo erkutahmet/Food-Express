@@ -16,9 +16,9 @@ protocol FoodCellInterface {
 
 final class FoodCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var foodImageView: UIImageView!
-    @IBOutlet weak var foodInfoLbl: UILabel!
-    @IBOutlet weak var foodBackView: UIView!
+    @IBOutlet private weak var foodImageView: UIImageView!
+    @IBOutlet private weak var foodInfoLbl: UILabel!
+    @IBOutlet private weak var foodBackView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
