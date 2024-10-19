@@ -54,18 +54,18 @@ extension MainViewModel: MainViewModelInterface {
             case .success(let data):
                 self.dataSource = data
                 self.mapCellData()
-            case .failure(let error):
-                print("This is error -> \(error.localizedDescription)")
+            case .failure:
+                print("Error from -> (getData)")
             }
         }
     }
     func mapCellData() {
-        self.allFoods = self.dataSource?.yemekler.compactMap( {FoodViewModel(food: $0)} ) ?? []
+        self.allFoods = self.dataSource?.yemekler?.compactMap( {FoodViewModel(food: $0)} ) ?? []
         self.cellDataSource.value = self.allFoods
     }
 
     func retriveFood(with id: String) -> Foods? {
-        guard let food = dataSource?.yemekler.first(where: {$0.yemekID == id}) else { return nil }
+        guard let food = dataSource?.yemekler?.first(where: {$0.yemek_id == id}) else { return nil }
         return food
     }
     
@@ -76,8 +76,8 @@ extension MainViewModel: MainViewModelInterface {
         }
         
         let filteredData = allFoods.filter { food in
-              return food.yemekAdi.lowercased().contains(searchText.lowercased())
-          }
+            return food.yemekAdi.lowercased().contains(searchText.lowercased())
+        }
 
         self.cellDataSource.value = filteredData
     }

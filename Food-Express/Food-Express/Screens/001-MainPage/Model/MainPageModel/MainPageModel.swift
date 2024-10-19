@@ -8,30 +8,23 @@
 import Foundation
 
 struct MainPageModel: Codable {
-    let yemekler: [Foods]
-    let success: Int
+    let yemekler: [Foods]?
+    let success: Int?
 }
 
 struct Foods: Codable {
-    let yemekID, yemekAdi, yemekResimAdi, yemekFiyat: String?
-
-    enum CodingKeys: String, CodingKey {
-        case yemekID = "yemek_id"
-        case yemekAdi = "yemek_adi"
-        case yemekResimAdi = "yemek_resim_adi"
-        case yemekFiyat = "yemek_fiyat"
-    }
+    let yemek_id, yemek_adi, yemek_resim_adi, yemek_fiyat: String?
 }
 
 struct FoodViewModel {
     let yemekID, yemekAdi, yemekResimAdi, yemekFiyat: String
-    let imageURL: URL?
+    let imageURL: URL
     
     init(food: Foods) {
-        self.yemekID = food.yemekID ?? ""
-        self.yemekAdi = food.yemekAdi ?? ""
-        self.yemekResimAdi = food.yemekResimAdi ?? ""
-        self.yemekFiyat = food.yemekFiyat ?? ""
-        self.imageURL = URL.makeImageUrl(from: self.yemekResimAdi)
+        self.yemekID = food.yemek_id ?? ""
+        self.yemekAdi = food.yemek_adi ?? ""
+        self.yemekResimAdi = food.yemek_resim_adi ?? ""
+        self.yemekFiyat = food.yemek_fiyat ?? ""
+        self.imageURL = URL.makeImageUrl(from: self.yemekResimAdi)!
     }
 }
