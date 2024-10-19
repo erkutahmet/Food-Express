@@ -8,8 +8,12 @@
 import UIKit
 
 protocol BasketCollectionViewDelegate: AnyObject {
-    func didUpdateAmount(for cell: BasketCollectionViewCell)
     func didRequestDelete(_ cell: BasketCollectionViewCell)
+}
+
+protocol BasketCollectionViewCellInterface {
+    static var identifier: String { get }
+    static func register() -> UINib
 }
 
 final class BasketCollectionViewCell: UICollectionViewCell {
@@ -18,71 +22,25 @@ final class BasketCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var basketProductNameLbl: UILabel!
     @IBOutlet weak var basketProductPriceLbl: UILabel!
     @IBOutlet weak var basketProductAmountLbl: UILabel!
-    @IBOutlet weak var increaseImageView: UIImageView!
-    @IBOutlet weak var decreaseImageView: UIImageView!
+    @IBOutlet weak var totalPriceLbl: UILabel!
     
-    var amount: Int = 1
-    var price: Double = 0.0
     weak var delegate: BasketCollectionViewDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let increaseTapGesture = UITapGestureRecognizer(target: self, action: #selector(increaseAmount))
-        increaseImageView.isUserInteractionEnabled = true
-        increaseImageView.addGestureRecognizer(increaseTapGesture)
-
-        let decreaseTapGesture = UITapGestureRecognizer(target: self, action: #selector(decreaseAmount))
-        decreaseImageView.isUserInteractionEnabled = true
-        decreaseImageView.addGestureRecognizer(decreaseTapGesture)
-
-        updateDecreaseImageView()
-        updateTotalPrice()
     }
-
-    func configure(amount: Int, price: Double) {
-        self.amount = amount
-        self.price = price
-        basketProductAmountLbl.text = String(amount)
-        updateDecreaseImageView()
-        updateTotalPrice()
-    }
-
-    @objc private func increaseAmount() {
-        if amount >= 1 {
-            amount += 1
-            basketProductAmountLbl.text = String(amount)
-            updateDecreaseImageView()
-            updateTotalPrice()
-            delegate?.didUpdateAmount(for: self)
-        }
-    }
-
-    @objc private func decreaseAmount() {
-        if amount > 1 {
-            amount -= 1
-            basketProductAmountLbl.text = String(amount)
-            updateDecreaseImageView()
-            updateTotalPrice()
-            delegate?.didUpdateAmount(for: self)
-        } else {
-            delegate?.didRequestDelete(self)
-        }
-    }
-
-    private func updateDecreaseImageView() {
-        if amount == 1 {
-            decreaseImageView.image = UIImage(systemName: "trash.circle")
-            decreaseImageView.tintColor = .systemRed
-        } else {
-            decreaseImageView.image = UIImage(systemName: "minus.circle")
-            decreaseImageView.tintColor = .black
-        }
-    }
-
-    private func updateTotalPrice() {
-        let totalPrice = Double(amount) * price
-        basketProductPriceLbl.text = String(format: "%.2f₺", totalPrice)
+    
+    @IBAction func deleteBtnClicked(_ sender: Any) {
+        delegate?.didRequestDelete(self)
     }
 }
 
+extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
+    static var identifier: String {
+        return "basketCell"
+    }
+    
+    static func register() -> UINib {
+        UINib(nibName: "BasketCollectionViewCell", bundle: nil)
+    }
+}

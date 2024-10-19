@@ -10,7 +10,7 @@ import AlamofireImage
 
 final class DetailsFoodViewController: UIViewController {
     
-    private let viewModel: DetailsFoodViewModel
+    private let viewModel: DetailsFoodModel
     
     @IBOutlet private weak var foodNameLbl: UILabel!
     @IBOutlet private weak var foodPriceLbl: UILabel!
@@ -20,7 +20,7 @@ final class DetailsFoodViewController: UIViewController {
 
     private var amount = 1
 
-    init(viewModel: DetailsFoodViewModel) {
+    init(viewModel: DetailsFoodModel) {
         self.viewModel = viewModel
         super.init(nibName: "DetailsFoodViewController", bundle: nil)
     }

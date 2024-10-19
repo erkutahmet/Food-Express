@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DetailsFoodViewModel {
+struct DetailsFoodModel {
     
     let food: Yemekler
     
