@@ -25,7 +25,6 @@ final class MainPageViewController: UIViewController {
     
     private lazy var viewModel = MainViewModel()
     private var cellDataSource = [FoodViewModel]()
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +87,7 @@ extension MainPageViewController: UICollectionViewDelegateFlowLayout {
 extension MainPageViewController: MainViewInterface {
     func openDetail(id foodId: String) {
         guard let food = viewModel.retriveFood(with: foodId) else { return }
-        let detailFoodViewModel = DetailsFoodModel(food: food)
+        let detailFoodViewModel = FoodViewModel(food: food)
         let detailFoodViewController = DetailsFoodViewController(viewModel: detailFoodViewModel)
         let backItem = UIBarButtonItem()
         backItem.title = ""

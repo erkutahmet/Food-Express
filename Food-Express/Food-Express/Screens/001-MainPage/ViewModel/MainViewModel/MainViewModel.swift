@@ -16,7 +16,7 @@ protocol MainViewModelInterface {
     func getData()
     func mapCellData()
     func numberOfItems() -> Int
-    func retriveFood(with id: String) -> Yemekler?
+    func retriveFood(with id: String) -> Foods?
     func searchHandler(contains searchText: String)
 }
 
@@ -64,7 +64,7 @@ extension MainViewModel: MainViewModelInterface {
         self.cellDataSource.value = self.allFoods
     }
 
-    func retriveFood(with id: String) -> Yemekler? {
+    func retriveFood(with id: String) -> Foods? {
         guard let food = dataSource?.yemekler.first(where: {$0.yemekID == id}) else { return nil }
         return food
     }
