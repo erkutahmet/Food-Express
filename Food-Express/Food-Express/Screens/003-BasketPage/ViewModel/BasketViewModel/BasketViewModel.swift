@@ -62,7 +62,8 @@ extension BasketViewModel: BasketViewModelInterface {
 
     func removeItem(at indexPath: IndexPath) {
         guard let id = self.cellDataSource.value?[indexPath.item].sepetYemekID else { return }
-        APICaller.deleteFoodFromBasket(id: id) { result in
+        let parameterID = DeleteFoodBasketParameters(sepetYemekID: id)
+        APICaller.deleteFoodFromBasket(parameters: parameterID) { result in
             switch result {
             case .success(let data):
                 if data.success == 0 {

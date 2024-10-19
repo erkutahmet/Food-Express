@@ -25,12 +25,12 @@ final class LoginViewController: UIViewController {
         loginBtn.layer.cornerRadius = 12
         loginBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     }
-    @IBAction func loginBtnClicked(_ sender: Any) {
+    @IBAction private func loginBtnClicked(_ sender: Any) {
         let mainVC = TabBarViewController()
         mainVC.modalPresentationStyle = .fullScreen
         self.present(mainVC, animated: true)
     }
-    @IBAction func signupBtnClicked(_ sender: Any) {
+    @IBAction private func signupBtnClicked(_ sender: Any) {
         let nextVC = SignUpViewController(nibName: "SignUpViewController", bundle: nil)
         nextVC.modalPresentationStyle = .popover
         self.present(nextVC, animated: true)

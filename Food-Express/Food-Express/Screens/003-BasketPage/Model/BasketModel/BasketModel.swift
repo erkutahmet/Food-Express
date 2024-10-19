@@ -40,3 +40,37 @@ struct ViewBasketModel {
         self.imageURL = URL.makeImageUrl(from: self.yemekResimAdi)!
     }
 }
+
+struct AddFoodBasketParameters {
+    let yemekAdi, yemekResimAdi, yemekFiyat, yemekSiparisAdet: String
+    
+    func toDict() -> [String: String] {
+        return [
+            "yemek_adi": yemekAdi,
+            "yemek_resim_adi": yemekResimAdi,
+            "yemek_fiyat": yemekFiyat,
+            "yemek_siparis_adet": yemekSiparisAdet,
+            "kullanici_adi": "123jsonparse123deneme"
+        ]
+    }
+}
+
+struct GetFoodBasketParameters {
+
+    func toDict() -> [String: String] {
+        return [
+            "kullanici_adi": "123jsonparse123deneme"
+        ]
+    }
+}
+
+struct DeleteFoodBasketParameters {
+    let sepetYemekID: String
+
+    func toDict() -> [String: String] {
+        return [
+            "sepet_yemek_id": sepetYemekID,
+            "kullanici_adi": "123jsonparse123deneme"
+        ]
+    }
+}

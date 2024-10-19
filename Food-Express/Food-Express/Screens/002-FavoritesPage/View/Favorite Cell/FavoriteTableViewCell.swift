@@ -9,6 +9,7 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
 
+    // TODO: buranin viewmodel'i olduktan sonra private olacak
     @IBOutlet weak var favoriteImageView: UIImageView!
     @IBOutlet weak var favoriteNameLbl: UILabel!
     @IBOutlet weak var favoriteHeartImageView: UIImageView!

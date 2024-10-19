@@ -42,24 +42,16 @@ public class APICaller {
         }
     }
 
-    static func addFoodToBasket(ad: String, resim: String, fiyat: String, adet: String, completionHandler: @escaping (_ result: Result<CRUDResponse, NetworkError>) -> Void) {
+    static func addFoodToBasket(parameters: AddFoodBasketParameters, completionHandler: @escaping (_ result: Result<CRUDResponse, NetworkError>) -> Void) {
     
         let urlString = NetworkConstant.shared.addFoodToBasket
-        
-        let params = [
-            "yemek_adi": ad,
-            "yemek_resim_adi": resim,
-            "yemek_fiyat": fiyat,
-            "yemek_siparis_adet": adet,
-            "kullanici_adi": "123jsonparse123deneme"
-        ]
         
         guard let url = URL(string: urlString) else {
             completionHandler(.failure(.urlError))
             return
         }
         
-        AF.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseDecodable(of: CRUDResponse.self) { response in
+        AF.request(url, method: .post, parameters: parameters.toDict(), encoding: URLEncoding.default).responseDecodable(of: CRUDResponse.self) { response in
             switch response.result {
             case .success(let result):
                 completionHandler(.success(result))
@@ -74,14 +66,12 @@ public class APICaller {
 
         let urlString = NetworkConstant.shared.getBasketFoods
 
-        let params = ["kullanici_adi": "123jsonparse123deneme"]
-
         guard let url = URL(string: urlString) else {
             completionHandler(.failure(.urlError))
             return
         }
 
-        AF.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseDecodable(of: BasketModel.self) { response in
+        AF.request(url, method: .post, parameters: GetFoodBasketParameters().toDict(), encoding: URLEncoding.default).responseDecodable(of: BasketModel.self) { response in
 
             switch response.result {
             case .success(let basketModel):
@@ -93,21 +83,16 @@ public class APICaller {
         }
     }
 
-    static func deleteFoodFromBasket(id: String, completionHandler: @escaping (_ result: Result<CRUDResponse, NetworkError>) -> Void) {
+    static func deleteFoodFromBasket(parameters: DeleteFoodBasketParameters, completionHandler: @escaping (_ result: Result<CRUDResponse, NetworkError>) -> Void) {
 
         let urlString = NetworkConstant.shared.removeFoodFromBasket
-
-        let params = [
-            "sepet_yemek_id": id,
-            "kullanici_adi": "123jsonparse123deneme"
-        ]
 
         guard let url = URL(string: urlString) else {
             completionHandler(.failure(.urlError))
             return
         }
 
-        AF.request(url, method: .post, parameters: params, encoding: URLEncoding.default).responseDecodable(of: CRUDResponse.self) { response in
+        AF.request(url, method: .post, parameters: parameters.toDict(), encoding: URLEncoding.default).responseDecodable(of: CRUDResponse.self) { response in
             switch response.result {
             case .success(let result):
                 completionHandler(.success(result))

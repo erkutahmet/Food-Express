@@ -38,9 +38,7 @@ extension CategoriesPageViewController: UICollectionViewDataSource {
     }
 }
 
-extension CategoriesPageViewController: UICollectionViewDelegate {
-    
-}
+extension CategoriesPageViewController: UICollectionViewDelegate { }
 
 extension CategoriesPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

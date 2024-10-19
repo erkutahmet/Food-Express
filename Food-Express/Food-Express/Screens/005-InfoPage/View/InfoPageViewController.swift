@@ -9,13 +9,13 @@ import UIKit
 
 final class InfoPageViewController: UIViewController {
 
-    @IBOutlet weak var settingsTableView: UITableView!
-    @IBOutlet weak var nameLbl: UILabel!
-    @IBOutlet weak var surnameLbl: UILabel!
-    @IBOutlet weak var userPictureImageView: UIImageView!
+    @IBOutlet private weak var settingsTableView: UITableView!
+    @IBOutlet private weak var nameLbl: UILabel!
+    @IBOutlet private weak var surnameLbl: UILabel!
+    @IBOutlet private weak var userPictureImageView: UIImageView!
 
-    let list = ["Edit profile", "Change password", "Dark mode"]
-    let list2 = ["About us", "Privacy policy", "Terms of service"]
+    private let list = ["Edit profile", "Change password", "Dark mode"]
+    private let list2 = ["About us", "Privacy policy", "Terms of service"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +111,4 @@ extension InfoPageViewController: UITableViewDataSource {
 
 }
 
-extension InfoPageViewController: UITableViewDelegate {
-    
-}
+extension InfoPageViewController: UITableViewDelegate { }
