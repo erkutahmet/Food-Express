@@ -37,7 +37,7 @@ final class DetailsFoodViewController: UIViewController {
     func configResult() {
         foodNameLbl.text = viewModel.yemekAdi
         foodPriceLbl.text = viewModel.yemekFiyat
-        foodImageView.af.setImage(withURL: viewModel.imageURL!)
+        foodImageView.af.setImage(withURL: viewModel.imageURL)
     }
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
         if favoriteBtn.currentImage == UIImage(named: "favorite_unclicked") {
@@ -48,7 +48,20 @@ final class DetailsFoodViewController: UIViewController {
     }
     
     @IBAction private func addToBasketBtnClicked(_ sender: Any) {
-        
+        APICaller.addFoodToBasket(ad: viewModel.yemekAdi, resim: viewModel.yemekResimAdi, fiyat: viewModel.yemekFiyat, adet: String(amount)) { result in
+            switch result {
+            case .success(let data):
+                if data.success == 0 {
+                    // TODO: buraya alert
+                    print("Sepete ekleme işlemi başarısız")
+                } else {
+                    print("Sepete ekleme işlemi başarılı")
+                    self.navigationController?.popViewController(animated: true)
+                }
+            case .failure:
+                print("Error from (addFoodToBasket)")
+            }
+        }
     }
 
     @IBAction private func minusBtnClicked(_ sender: Any) {

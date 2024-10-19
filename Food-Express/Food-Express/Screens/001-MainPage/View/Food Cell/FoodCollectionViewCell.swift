@@ -36,7 +36,7 @@ extension FoodCollectionViewCell: FoodCellInterface {
     
     func setupCell(viewModel: FoodViewModel) {
         self.foodInfoLbl.text = "\(viewModel.yemekAdi)\n\(viewModel.yemekFiyat)₺"
-        self.foodImageView.af.setImage(withURL: viewModel.imageURL!)
+        self.foodImageView.af.setImage(withURL: viewModel.imageURL)
     }
 
     func setupCellShadowView(index: Int) {

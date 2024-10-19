@@ -42,11 +42,7 @@ final class MainPageViewController: UIViewController {
 
     @IBAction func searchHandler(_ sender: UITextField) {
         guard let searchText = sender.text else { return }
-        if searchText == "" {
-            viewModel.searchHandler(contains: "")
-        } else {
-            viewModel.searchHandler(contains: searchText)
-        }
+        viewModel.searchHandler(contains: searchText)
         
     }
 }
@@ -155,6 +151,7 @@ extension MainPageViewController: MainViewInterface {
 
     @objc private func clearTextField() {
         searchTextField.text = ""
+        viewModel.searchHandler(contains: "")
         searchTextField.endEditing(true)
     }
 
