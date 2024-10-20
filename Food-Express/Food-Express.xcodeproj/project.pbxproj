@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC8ACD692CB6055900790618 /* Alamofire */; };
 		DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DCC578712CB8061600CC5D4C /* AlamofireImage */; };
+		DCE9D6D62CC5A02C00C48FBB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DCE9D6D52CC5A02C00C48FBB /* FirebaseAuth */; };
+		DCE9D6D82CC5A02C00C48FBB /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DCE9D6D72CC5A02C00C48FBB /* FirebaseFirestore */; };
+		DCE9D6DA2CC5A05D00C48FBB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DCE9D6D92CC5A05D00C48FBB /* FirebaseCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */,
+				DCE9D6DA2CC5A05D00C48FBB /* FirebaseCore in Frameworks */,
+				DCE9D6D82CC5A02C00C48FBB /* FirebaseFirestore in Frameworks */,
+				DCE9D6D62CC5A02C00C48FBB /* FirebaseAuth in Frameworks */,
 				DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +93,9 @@
 			packageProductDependencies = (
 				DC8ACD692CB6055900790618 /* Alamofire */,
 				DCC578712CB8061600CC5D4C /* AlamofireImage */,
+				DCE9D6D52CC5A02C00C48FBB /* FirebaseAuth */,
+				DCE9D6D72CC5A02C00C48FBB /* FirebaseFirestore */,
+				DCE9D6D92CC5A05D00C48FBB /* FirebaseCore */,
 			);
 			productName = "Food-Express";
 			productReference = DCDC62F42CB21B6700D51E16 /* Food-Express.app */;
@@ -119,6 +128,7 @@
 			packageReferences = (
 				DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				DCE9D6D42CC5A02C00C48FBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DCDC62F52CB21B6700D51E16 /* Products */;
@@ -366,6 +376,14 @@
 				minimumVersion = 4.3.0;
 			};
 		};
+		DCE9D6D42CC5A02C00C48FBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -378,6 +396,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		DCE9D6D52CC5A02C00C48FBB /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE9D6D42CC5A02C00C48FBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		DCE9D6D72CC5A02C00C48FBB /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE9D6D42CC5A02C00C48FBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		DCE9D6D92CC5A05D00C48FBB /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE9D6D42CC5A02C00C48FBB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAHyovPBa5Xe84uPr8RgxNBNihLHLjsLk4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>245434842250</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ahmeterkut.Food-Express</string>
+	<key>PROJECT_ID</key>
+	<string>food-express-a11a0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>food-express-a11a0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:245434842250:ios:2af1b615a9c4aeba008173</string>
+</dict>
+</plist>
