@@ -12,6 +12,7 @@ protocol BasketPageViewInterface: AnyObject {
     func setUIDesign()
     func bindViewModel()
     func reloadData()
+    func showAlertFromVM(title: String, message: String)
 }
 
 final class BasketPageViewController: UIViewController {
@@ -99,5 +100,14 @@ extension BasketPageViewController: BasketPageViewInterface {
     func setUIDesign() {
         placeOrderBtn.layer.cornerRadius = 16
         placeOrderBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
+    }
+
+    func showAlertFromVM(title: String, message: String) {
+        errorShowAlert(title: title, message: message) {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let mainVC = TabBarViewController()
+            appDelegate.window?.rootViewController = mainVC
+            appDelegate.window?.makeKeyAndVisible()
+        }
     }
 }
