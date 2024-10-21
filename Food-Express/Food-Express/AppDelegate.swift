@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,16 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let window = UIWindow(frame: UIScreen.main.bounds)
+        
         FirebaseApp.configure()
-
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
         let savedStyle = UserDefaults.standard.string(forKey: "userInterfaceStyle") ?? "light"
-        window.overrideUserInterfaceStyle = (savedStyle == "dark") ? .dark : .light
+        window?.overrideUserInterfaceStyle = (savedStyle == "dark") ? .dark : .light
+        
+        if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
+            let mainVC = TabBarViewController()
+            window?.rootViewController = mainVC
+        } else {
+            let loginVC = LoginViewController()
+            window?.rootViewController = loginVC
+        }
 
-        window.rootViewController = TabBarViewController()
-        window.makeKeyAndVisible()
-
-        self.window = window
+        window?.makeKeyAndVisible()
         return true
     }
 }

@@ -10,11 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignUpViewController" customModule="Food_Express" customModuleProvider="target">
             <connections>
-                <outlet property="confirmPassTextField" destination="COo-Bo-XV4" id="YTx-HW-DCg"/>
-                <outlet property="emailTextField" destination="zcm-pt-WgQ" id="YXO-es-A7K"/>
-                <outlet property="lastnameTextField" destination="PFD-in-opG" id="CYS-zj-YWR"/>
+                <outlet property="confirmPassTextField" destination="6nX-Fk-Bdm" id="IlB-oX-c4o"/>
+                <outlet property="emailTextField" destination="TVa-mc-mv1" id="y18-LO-emo"/>
+                <outlet property="lastnameTextField" destination="C8g-Ts-uaz" id="w8M-sR-DZZ"/>
                 <outlet property="nameTextField" destination="eXj-vl-wQw" id="rbg-Xd-h0W"/>
-                <outlet property="passwordTextField" destination="XA9-Vn-DCb" id="Hj5-HZ-Uhm"/>
+                <outlet property="passwordTextField" destination="7QB-kp-lfJ" id="Tei-xG-xk1"/>
                 <outlet property="signUpBtn" destination="Ski-nW-oPU" id="GJC-iG-6Ke"/>
                 <outlet property="signupBackgroundView" destination="hck-FQ-LGT" id="ZSX-n1-LxV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -67,7 +67,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Erkut" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eXj-vl-wQw">
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ahmet" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eXj-vl-wQw">
                                                     <rect key="frame" x="16" y="28" width="289" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="TLx-CO-Zjf"/>
@@ -100,7 +100,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ahmet" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8g-Ts-uaz">
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ERKUT" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C8g-Ts-uaz">
                                                     <rect key="frame" x="16" y="28" width="289" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="Glq-Gd-Kb0"/>
@@ -172,7 +172,7 @@
                                                         <constraint firstAttribute="height" constant="36" id="48A-Sg-UK7"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="continue" textContentType="new-password"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="continue" secureTextEntry="YES" textContentType="new-password"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -205,7 +205,7 @@
                                                         <constraint firstAttribute="height" constant="36" id="cZZ-46-wkA"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="go" textContentType="new-password"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES" textContentType="new-password"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -336,7 +336,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

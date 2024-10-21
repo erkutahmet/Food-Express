@@ -48,13 +48,13 @@ extension BasketViewModel: BasketViewModelInterface {
     }
 
     func getFoodsInBasket() {
-        APICaller.getFoodInBasket() { result in
+        APICaller.getFoodInBasket() { [weak self] result in
             switch result {
             case .success(let data):
-                self.dataSource = data
-                self.mapCellData()
+                self?.dataSource = data
+                self?.mapCellData()
             case .failure:
-                self.cellDataSource.value = []
+                self?.cellDataSource.value = []
                 print("Error from -> (getFoodsInBasket)")
             }
         }
@@ -63,7 +63,10 @@ extension BasketViewModel: BasketViewModelInterface {
     func removeItem(at indexPath: IndexPath) {
         guard let id = self.cellDataSource.value?[indexPath.item].sepetYemekID else { return }
         let parameterID = DeleteFoodBasketParameters(sepetYemekID: id)
-        APICaller.deleteFoodFromBasket(parameters: parameterID) { result in
+        APICaller.deleteFoodFromBasket(parameters: parameterID) { [weak self] result in
+            
+            guard let self = self else { return }
+            
             switch result {
             case .success(let data):
                 if data.success == 0 {

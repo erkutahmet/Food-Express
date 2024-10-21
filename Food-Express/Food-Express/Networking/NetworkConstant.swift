@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 final class NetworkConstant {
     
@@ -40,6 +41,12 @@ final class NetworkConstant {
     public var foodImageBaseUrl: String {
         get {
             return "http://kasimadalan.pe.hu/yemekler/resimler/"
+        }
+    }
+
+    public var firestoreDB: Firestore {
+        get {
+            return Firestore.firestore()
         }
     }
 }

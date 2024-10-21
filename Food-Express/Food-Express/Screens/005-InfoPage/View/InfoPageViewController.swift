@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import FirebaseAuth
+
+protocol InfoPageViewInterface: AnyObject {
+    func setUI()
+    func showAlertFromVM(status: Bool, title: String, message: String)
+}
 
 final class InfoPageViewController: UIViewController {
 
@@ -14,15 +20,15 @@ final class InfoPageViewController: UIViewController {
     @IBOutlet private weak var surnameLbl: UILabel!
     @IBOutlet private weak var userPictureImageView: UIImageView!
 
+    private lazy var viewModel = InfoPageViewModel()
+
     private let list = ["Edit profile", "Change password", "Dark mode"]
-    private let list2 = ["About us", "Privacy policy", "Terms of service"]
+    private let list2 = ["About us", "Privacy policy", "Terms of service", "Sign Out"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingsTableView.dataSource = self
-        settingsTableView.delegate = self
-
-        settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingsCell")
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
 }
 
@@ -42,9 +48,13 @@ extension InfoPageViewController: UITableViewDataSource {
         let savedStyle = UserDefaults.standard.string(forKey: "userInterfaceStyle") ?? "light"
         toggleSwitch.isOn = (savedStyle == "dark")
         toggleSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-
+        
         if cell.textLabel?.text == "Dark mode" {
+            cell.selectionStyle = .none
             cell.accessoryView = toggleSwitch
+        } else if cell.textLabel?.text == "Sign Out" {
+            cell.textLabel?.textColor = .red
+            cell.accessoryType = .none
         } else {
             cell.accessoryType = .disclosureIndicator
         }
@@ -111,4 +121,43 @@ extension InfoPageViewController: UITableViewDataSource {
 
 }
 
-extension InfoPageViewController: UITableViewDelegate { }
+extension InfoPageViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if indexPath.section == 1{
+            if indexPath.row == 3 {
+                errorShowAlertWithOptions(title: "Warning!", message: "Are you sure want to sign out?",
+                okCompletion: {
+                    self.viewModel.signOutUser()
+                }, cancelCompletion: {
+                    self.dismiss(animated: true)
+                })
+            }
+        }
+    }
+}
+
+extension InfoPageViewController: InfoPageViewInterface {
+    
+    func setUI() {
+        settingsTableView.dataSource = self
+        settingsTableView.delegate = self
+
+        settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingsCell")
+    }
+
+    
+    func showAlertFromVM(status: Bool, title: String, message: String) {
+        if status {
+            self.successShowAlert(title: title, message: message) {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let loginVC = LoginViewController()
+                appDelegate.window?.rootViewController = loginVC
+                appDelegate.window?.makeKeyAndVisible()
+            }
+        } else {
+            self.errorShowAlert(title: title, message: message)
+        }
+    }
+}
