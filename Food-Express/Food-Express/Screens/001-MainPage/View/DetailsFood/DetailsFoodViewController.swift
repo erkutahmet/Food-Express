@@ -11,6 +11,7 @@ import AlamofireImage
 protocol DetailsViewInterface: AnyObject {
     func configResult()
     func getParameters() -> AddFoodBasketParameters
+    func showAlert(status: Bool, title: String, message: String)
 }
 
 final class DetailsFoodViewController: UIViewController {
@@ -79,5 +80,13 @@ extension DetailsFoodViewController: DetailsViewInterface {
                           yemekResimAdi: foodViewModel.yemekResimAdi,
                           yemekFiyat: foodViewModel.yemekFiyat,
                           yemekSiparisAdet: String(amount))
+    }
+
+    func showAlert(status: Bool, title: String, message: String) {
+        if status {
+            successShowAlert(title: title, message: message)
+        } else {
+            errorShowAlert(title: title, message: message)
+        }
     }
 }

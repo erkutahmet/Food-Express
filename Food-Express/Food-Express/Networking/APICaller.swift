@@ -8,6 +8,8 @@
 import Foundation
 import Alamofire
 import AlamofireImage
+import FirebaseFirestore
+import FirebaseAuth
 
 enum NetworkError: Error {
     case urlError
@@ -100,6 +102,68 @@ public class APICaller {
                 completionHandler(.failure(.decodingError))
                 print("-->\(error.localizedDescription)")
             }
+        }
+    }
+
+    static func registerUser(data: UserModel, completionHandler: @escaping (String?) -> Void) {
+        Auth.auth().createUser(withEmail: data.user_info?.user_mail ?? "", password: data.user_info?.user_password ?? "") { authResult, error in
+            if let error = error {
+                completionHandler(error.localizedDescription)
+                print("Error during user registration: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let user = authResult?.user else {
+                return
+            }
+            
+            var userWithUUID = data
+            userWithUUID.user_uuid = user.uid
+
+            saveUserToFirestore(data: userWithUUID) { errorMessage in
+                completionHandler(errorMessage)
+            }
+        }
+    }
+    
+    static func saveUserToFirestore(data: UserModel, completionHandler: @escaping (String?) -> Void) {
+        do {
+            try NetworkConstant.shared.firestoreDB.collection("Users").document(data.user_uuid ?? "").setData(from: data) { error in
+                if let error = error {
+                    completionHandler("Error while setting user info: \(error.localizedDescription)")
+                } else {
+                    completionHandler(nil)
+                }
+            }
+        } catch let error {
+            completionHandler("Error while setting user info: \(error.localizedDescription)")
+        }
+    }
+
+    static func loginUser(email: String, password: String, completionHandler: @escaping (Bool, String?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            
+            if let error = error {
+                completionHandler(false, error.localizedDescription)
+                print("Error signing in: \(error.localizedDescription)")
+                return
+            } else {
+                UserDefaults.standard.set(true, forKey: "isUserLoggedIn")
+                completionHandler(true, "Logging in...")
+                print("User signed in successfully")
+            }
+        }
+    }
+
+    static func signOutUser(completionHandler: @escaping (Bool, String?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            UserDefaults.standard.set(false, forKey: "isUserLoggedIn")
+            completionHandler(true, "Your account is being logged out securely.")
+            print("User signed out successfully")
+        } catch let signOutError as NSError {
+            completionHandler(false, signOutError.localizedDescription)
+            print("Error signing in: \(signOutError.localizedDescription)")
         }
     }
 }

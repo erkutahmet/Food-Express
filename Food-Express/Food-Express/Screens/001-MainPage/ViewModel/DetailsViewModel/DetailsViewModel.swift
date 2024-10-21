@@ -25,14 +25,18 @@ extension DetailsViewModel: DetailsViewModelInterface {
     }
 
     func addFoodToBasket(parameters: AddFoodBasketParameters) {
-        APICaller.addFoodToBasket(parameters: parameters) { result in
+        APICaller.addFoodToBasket(parameters: parameters) { [weak self] result in
+            
+            guard let self = self else { return }
+
             switch result {
             case .success(let data):
                 if data.success == 0 {
-                    // TODO: buraya alert
-                    print("Sepete ekleme işlemi başarısız")
+                    self.view?.showAlert(status: false, title: "Failed", message: "Your product could not be added to the basket due to an unknown reason.")
+                    print("Adding to basket failed")
                 } else {
-                    print("Sepete ekleme işlemi başarılı")
+                    self.view?.showAlert(status: true, title: "Added to Basket", message: "Your product has been successfully added to the basket.")
+                    print("Adding to basket successful")
                 }
             case .failure:
                 print("Error from (addFoodToBasket)")

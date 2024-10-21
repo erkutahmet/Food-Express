@@ -49,7 +49,10 @@ extension MainViewModel: MainViewModelInterface {
     }
 
     func getData() {
-        APICaller.getAllFoods { result in
+        APICaller.getAllFoods { [weak self] result in
+            
+            guard let self = self else { return }
+            
             switch result {
             case .success(let data):
                 self.dataSource = data
