@@ -55,6 +55,7 @@ extension BasketViewModel: BasketViewModelInterface {
                 self?.mapCellData()
             case .failure:
                 self?.cellDataSource.value = []
+                self?.view?.showAlertFromVM(title: "Warning!", message: "Your cart is empty. There is nothing to display here.")
                 print("Error from -> (getFoodsInBasket)")
             }
         }
