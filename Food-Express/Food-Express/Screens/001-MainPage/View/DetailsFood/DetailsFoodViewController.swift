@@ -9,9 +9,11 @@ import UIKit
 import AlamofireImage
 
 protocol DetailsViewInterface: AnyObject {
+    func setUI()
     func configResult()
     func getParameters() -> AddFoodBasketParameters
     func showAlert(status: Bool, title: String, message: String)
+    func showPopUp(at popUpType: PopUpType)
 }
 
 final class DetailsFoodViewController: UIViewController {
@@ -23,7 +25,11 @@ final class DetailsFoodViewController: UIViewController {
     @IBOutlet private weak var foodImageView: UIImageView!
     @IBOutlet private weak var amountLbl: UILabel!
     @IBOutlet private weak var favoriteBtn: UIButton!
+    @IBOutlet private weak var addToBasketBtn: UIButton!
+
     private lazy var viewModel = DetailsViewModel()
+    private lazy var overLayer = OverLayerPopUpViewController()
+
     private var amount = 1
 
     init(foodViewModel: FoodViewModel) {
@@ -39,11 +45,13 @@ final class DetailsFoodViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+        favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
     }
     
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
         if favoriteBtn.currentImage == UIImage(named: "favorite_unclicked") {
-            favoriteBtn.setImage(UIImage(named: "favorite"), for: .normal)
+            favoriteBtn.setImage(UIImage(named: "favorite_clicked"), for: .normal)
+            viewModel.addToFavorite()
         } else {
             favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
         }
@@ -69,6 +77,11 @@ final class DetailsFoodViewController: UIViewController {
 }
 
 extension DetailsFoodViewController: DetailsViewInterface {
+    func setUI() {
+        addToBasketBtn.layer.cornerRadius = 16
+        addToBasketBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
+    }
+
     func configResult() {
         foodNameLbl.text = foodViewModel.yemekAdi
         foodPriceLbl.text = foodViewModel.yemekFiyat
@@ -87,6 +100,17 @@ extension DetailsFoodViewController: DetailsViewInterface {
             successShowAlert(title: title, message: message)
         } else {
             errorShowAlert(title: title, message: message)
+        }
+    }
+
+    func showPopUp(at popUpType: PopUpType) {
+        switch popUpType {
+        case .addToBasket:
+            overLayer.appear(sender: self, popUpType: .addToBasket)
+        case .favorite:
+            overLayer.appear(sender: self, popUpType: .favorite)
+        case .placeOrder:
+            break
         }
     }
 }

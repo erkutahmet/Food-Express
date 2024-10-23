@@ -43,7 +43,6 @@ final class MainPageViewController: UIViewController {
     @IBAction private func searchHandler(_ sender: UITextField) {
         guard let searchText = sender.text else { return }
         viewModel.searchHandler(contains: searchText)
-        
     }
 }
 
