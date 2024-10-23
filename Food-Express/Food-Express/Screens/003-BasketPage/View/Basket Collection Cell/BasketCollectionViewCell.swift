@@ -16,6 +16,7 @@ protocol BasketCollectionViewCellInterface {
     func setupCell(viewModel: ViewBasketModel)
     static var identifier: String { get }
     static func register() -> UINib
+    func animateRemoval()
 }
 
 final class BasketCollectionViewCell: UICollectionViewCell {
@@ -52,5 +53,12 @@ extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
         self.basketProductAmountLbl.text = viewModel.yemekSiparisAdet
         self.basketProductImageView.af.setImage(withURL: viewModel.imageURL)
         self.totalPriceLbl.text = "\((Int(viewModel.yemekFiyat) ?? 1) * (Int(viewModel.yemekSiparisAdet) ?? 1))₺"
+    }
+
+    func animateRemoval() {
+        UIView.animate(withDuration: 1, animations: {
+            self.transform = CGAffineTransform(translationX: -self.frame.width, y: 0)
+            self.alpha = 0
+        })
     }
 }

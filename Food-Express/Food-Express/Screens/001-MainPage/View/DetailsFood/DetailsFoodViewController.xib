@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsFoodViewController" customModule="Food_Express" customModuleProvider="target">
             <connections>
+                <outlet property="addToBasketBtn" destination="6EL-S4-UcB" id="jPW-3O-6im"/>
                 <outlet property="amountLbl" destination="YX3-u8-HSe" id="few-rw-DV7"/>
                 <outlet property="favoriteBtn" destination="1ia-lr-dDP" id="Sq3-t5-wLD"/>
                 <outlet property="foodImageView" destination="agH-wE-IBh" id="Ehh-ZP-OWL"/>
@@ -48,7 +49,7 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grr-GA-7kc">
                     <rect key="frame" x="28" y="219.33333333333337" width="329" height="184"/>
-                    <color key="backgroundColor" red="0.85051333900000003" green="0.85051333900000003" blue="0.85051333900000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                             <integer key="value" value="8"/>
@@ -78,7 +79,7 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6EL-S4-UcB">
                     <rect key="frame" x="209" y="734" width="160" height="52"/>
-                    <color key="backgroundColor" red="0.63225710390000001" green="0.63225710390000001" blue="0.63225710390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="darkModeSpecialBtn"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="160" id="7DI-A9-haH"/>
                         <constraint firstAttribute="height" constant="52" id="Cte-3s-Wpt"/>
@@ -112,6 +113,7 @@
                         <constraint firstAttribute="width" constant="40" id="yLS-lx-ksb"/>
                         <constraint firstAttribute="height" constant="36" id="zQa-mx-jjm"/>
                     </constraints>
+                    <color key="tintColor" name="darkModeSpecialBtn"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal">
                         <imageReference key="image" image="favorite_unclicked" symbolScale="large"/>
@@ -184,11 +186,14 @@
     </objects>
     <resources>
         <image name="aboutUs" width="326" height="212"/>
-        <image name="favorite_unclicked" width="48" height="44"/>
+        <image name="favorite_unclicked" width="47" height="44"/>
         <image name="minus" width="25" height="10.333333015441895"/>
         <image name="plus" width="25" height="25"/>
+        <namedColor name="darkModeSpecialBtn">
+            <color red="0.85500001907348633" green="0.85500001907348633" blue="0.85500001907348633" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="detailFoodColor">
-            <color red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.33300000429153442" green="0.33300000429153442" blue="0.33300000429153442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -13,6 +13,7 @@ protocol BasketPageViewInterface: AnyObject {
     func bindViewModel()
     func reloadData()
     func showAlertFromVM(title: String, message: String)
+    func animateRemoval(at indexPath: IndexPath)
 }
 
 final class BasketPageViewController: UIViewController {
@@ -22,6 +23,8 @@ final class BasketPageViewController: UIViewController {
     @IBOutlet private weak var placeOrderBtn: UIButton!
     private lazy var viewModel = BasketViewModel()
     private var cellDataSource = [ViewBasketModel]()
+
+    private lazy var overLayer = OverLayerPopUpViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,7 @@ final class BasketPageViewController: UIViewController {
     }
 
     @IBAction private func placeOrderBtnClicked(_ sender: Any) {
+        overLayer.appear(sender: self, popUpType: .placeOrder)
     }
 }
 
@@ -80,6 +84,7 @@ extension BasketPageViewController: BasketPageViewInterface {
             } else {
                 totalLabel.text = "Total: \(viewModel.getTotalPrice())₺"
             }
+            
             self.cellDataSource = basketItem
             self.reloadData()
         }
@@ -108,6 +113,12 @@ extension BasketPageViewController: BasketPageViewInterface {
             let mainVC = TabBarViewController()
             appDelegate.window?.rootViewController = mainVC
             appDelegate.window?.makeKeyAndVisible()
+        }
+    }
+
+    func animateRemoval(at indexPath: IndexPath) {
+        if let cell = self.basketCollectionView.cellForItem(at: indexPath) as? BasketCollectionViewCell {
+            cell.animateRemoval()
         }
     }
 }

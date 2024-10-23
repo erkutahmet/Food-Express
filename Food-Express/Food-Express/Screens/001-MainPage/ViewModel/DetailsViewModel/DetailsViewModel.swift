@@ -12,6 +12,7 @@ protocol DetailsViewModelInterface {
     
     func viewDidLoad()
     func addFoodToBasket(parameters: AddFoodBasketParameters)
+    func addToFavorite()
 }
 
 final class DetailsViewModel {
@@ -21,6 +22,7 @@ final class DetailsViewModel {
 extension DetailsViewModel: DetailsViewModelInterface {
     
     func viewDidLoad() {
+        view?.setUI()
         view?.configResult()
     }
 
@@ -35,12 +37,17 @@ extension DetailsViewModel: DetailsViewModelInterface {
                     self.view?.showAlert(status: false, title: "Failed", message: "Your product could not be added to the basket due to an unknown reason.")
                     print("Adding to basket failed")
                 } else {
-                    self.view?.showAlert(status: true, title: "Added to Basket", message: "Your product has been successfully added to the basket.")
+                    self.view?.showPopUp(at: .addToBasket)
                     print("Adding to basket successful")
                 }
             case .failure:
                 print("Error from (addFoodToBasket)")
             }
         }
+    }
+
+    func addToFavorite() {
+        self.view?.showPopUp(at: .favorite)
+        print("Favorilere eklendi.")
     }
 }
