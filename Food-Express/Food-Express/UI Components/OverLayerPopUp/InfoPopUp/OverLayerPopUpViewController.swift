@@ -43,8 +43,7 @@ final class OverLayerPopUpViewController: UIViewController {
         configView()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
         updateUIForPopUpType()
     }
 
@@ -83,13 +82,29 @@ final class OverLayerPopUpViewController: UIViewController {
     }
 
     private func show() {
-        UIView.animate(withDuration: 1, delay: 0.1) {
+        UIView.animate(withDuration: 0.5, delay: 0.1) {
             self.backView.alpha = 1
             self.contentView.alpha = 1
-            
-            UIView.animate(withDuration: 0.5) {
+            UIView.animate(withDuration: 0.5, delay: 0.5) {
                 self.animateIconForPopUpType()
             }
+        }
+    }
+    
+    private func standartIconForPopUpType() {
+        guard let popUpType = popUpType else { return }
+        
+        switch popUpType {
+        case .favorite:
+            symbolImageView.image = UIImage(systemName: "heart")
+            symbolImageView.tintColor = .darkGray
+            
+        case .addToBasket:
+            symbolImageView.image = UIImage(systemName: "info.circle")
+            symbolImageView.tintColor = .lightGray
+            
+        case .placeOrder:
+            symbolImageView.tintColor = .darkGray
         }
     }
     

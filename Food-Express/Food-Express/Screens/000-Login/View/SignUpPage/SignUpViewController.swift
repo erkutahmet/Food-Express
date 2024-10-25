@@ -35,9 +35,14 @@ final class SignUpViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
-    @IBAction private func signUpBtnClicked(_ sender: Any) {
+    @IBAction private func signUpBtnClicked(_ sender: UIButton) {
+        sender.isEnabled = false
+        sender.backgroundColor = UIColor(hex: "#B3B3B3")
         if !validateFields().isValid {
-            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.")
+            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.") {
+                sender.isEnabled = true
+                sender.backgroundColor = UIColor.black
+            }
         } else {
             viewModel.registerUser(data: registerUserData(name: nameTextField.text!,
                                                           surname: lastnameTextField.text!,
@@ -58,6 +63,11 @@ extension SignUpViewController: SignUpViewInterface {
         signupBackgroundView.layer.maskedCorners = [ .layerMinXMinYCorner ]
         signUpBtn.layer.cornerRadius = 12
         signUpBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        nameTextField.setPlaceholder("Ahmet")
+        lastnameTextField.setPlaceholder("ERKUT")
+        emailTextField.setPlaceholder("example@gmail.com")
+        passwordTextField.setPlaceholder("••••••••")
+        confirmPassTextField.setPlaceholder("••••••••")
     }
 
     func setupPasswordField() {
@@ -115,10 +125,15 @@ extension SignUpViewController: SignUpViewInterface {
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {
+                self.signUpBtn.isEnabled = true
+                self.signUpBtn.backgroundColor = UIColor.black
                 self.dismiss(animated: true)
             }
         } else {
-            self.errorShowAlert(title: title, message: message)
+            self.errorShowAlert(title: title, message: message) {
+                self.signUpBtn.isEnabled = true
+                self.signUpBtn.backgroundColor = UIColor.black
+            }
         }
     }
 }

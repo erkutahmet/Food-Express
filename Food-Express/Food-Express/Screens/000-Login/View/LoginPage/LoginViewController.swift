@@ -31,9 +31,14 @@ final class LoginViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
-    @IBAction private func loginBtnClicked(_ sender: Any) {
+    @IBAction private func loginBtnClicked(_ sender: UIButton) {
+        sender.isEnabled = false
+        sender.backgroundColor = UIColor(hex: "#B3B3B3")
         if !validateFields().isValid {
-            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.")
+            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.") {
+                sender.isEnabled = true
+                sender.backgroundColor = UIColor.black
+            }
         } else {
             viewModel.loginUser(email: emailTextField.text!, password: passwordTextField.text!)
         }
@@ -51,6 +56,8 @@ extension LoginViewController: LoginViewInterface {
         loginBackgroundView.layer.maskedCorners = [ .layerMinXMinYCorner ]
         loginBtn.layer.cornerRadius = 12
         loginBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        emailTextField.setPlaceholder("example@gmail.com")
+        passwordTextField.setPlaceholder("••••••••")
     }
     
     func setupPasswordField() {
@@ -90,13 +97,18 @@ extension LoginViewController: LoginViewInterface {
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {
+                self.loginBtn.isEnabled = true
+                self.loginBtn.backgroundColor = UIColor.black
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let mainVC = TabBarViewController()
                 appDelegate.window?.rootViewController = mainVC
                 appDelegate.window?.makeKeyAndVisible()
             }
         } else {
-            self.errorShowAlert(title: title, message: message)
+            self.errorShowAlert(title: title, message: message) {
+                self.loginBtn.isEnabled = true
+                self.loginBtn.backgroundColor = UIColor.black
+            }
         }
     }
 }

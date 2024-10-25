@@ -21,6 +21,8 @@ final class InfoPageViewController: UIViewController {
     @IBOutlet private weak var userPictureImageView: UIImageView!
 
     private lazy var viewModel = InfoPageViewModel()
+    private lazy var changesOverlayPopUp = SettingsChangesPopUpViewController()
+    private lazy var infoDetailsPage = InfoDetailsPageViewController()
 
     private let list = ["Edit profile", "Change password", "Dark mode"]
     private let list2 = ["About us", "Privacy policy", "Terms of service", "Sign Out"]
@@ -125,8 +127,20 @@ extension InfoPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.section == 1{
-            if indexPath.row == 3 {
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                changesOverlayPopUp.appear(sender: self, popUpType: .email)
+            } else if indexPath.row == 1 {
+                changesOverlayPopUp.appear(sender: self, popUpType: .password)
+            }
+        } else if indexPath.section == 1{
+            if indexPath.row == 0 {
+                infoDetailsPage.appear(sender: self, detailType: .aboutUs)
+            } else if indexPath.row == 1 {
+                infoDetailsPage.appear(sender: self, detailType: .privacyPolicy)
+            } else if indexPath.row == 2 {
+                infoDetailsPage.appear(sender: self, detailType: .termsOfService)
+            } else if indexPath.row == 3 {
                 errorShowAlertWithOptions(title: "Warning!", message: "Are you sure want to sign out?",
                 okCompletion: {
                     self.viewModel.signOutUser()
@@ -145,6 +159,11 @@ extension InfoPageViewController: InfoPageViewInterface {
         settingsTableView.delegate = self
 
         settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "settingsCell")
+
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = .label
+        navigationItem.backBarButtonItem = backItem
     }
 
     
