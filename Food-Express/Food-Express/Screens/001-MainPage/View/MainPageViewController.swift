@@ -9,6 +9,7 @@ import UIKit
 import AlamofireImage
 
 protocol MainViewInterface: AnyObject {
+    func setUI()
     func setUIForSearch()
     func setDelegateUI()
     func setDarkModeUI()
@@ -84,10 +85,6 @@ extension MainPageViewController: MainViewInterface {
         guard let food = viewModel.retriveFood(with: foodId) else { return }
         let detailFoodViewModel = FoodViewModel(food: food)
         let detailFoodViewController = DetailsFoodViewController(foodViewModel: detailFoodViewModel)
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        backItem.tintColor = .label
-        navigationItem.backBarButtonItem = backItem
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(detailFoodViewController, animated: true)
         }
@@ -107,7 +104,14 @@ extension MainPageViewController: MainViewInterface {
             self.foodCollectionView.reloadData()
         }
     }
-    
+
+    func setUI() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = .label
+        navigationItem.backBarButtonItem = backItem
+    }
+
     func setDelegateUI() {
         foodCollectionView.delegate = self
         foodCollectionView.dataSource = self

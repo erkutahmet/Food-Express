@@ -71,12 +71,12 @@ extension BasketViewModel: BasketViewModelInterface {
             switch result {
             case .success(let data):
                 if data.success == 0 {
-                    print("başarısız \(id)")
+                    print("Deletion failed \(id)")
                     self.view?.showAlertFromVM(title: "Error!", message: "An unexpected error occurred during the deletion process.")
                 } else {
-                    print("başarılı")
+                    print("Deletion succeed.")
                     self.view?.animateRemoval(at: indexPath)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.getFoodsInBasket()
                     }
                 }

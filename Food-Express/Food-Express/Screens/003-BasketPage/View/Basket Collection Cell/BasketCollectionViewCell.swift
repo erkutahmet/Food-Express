@@ -56,7 +56,7 @@ extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
     }
 
     func animateRemoval() {
-        UIView.animate(withDuration: 1, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.1, animations: {
             self.transform = CGAffineTransform(translationX: -self.frame.width, y: 0)
             self.alpha = 0
         })

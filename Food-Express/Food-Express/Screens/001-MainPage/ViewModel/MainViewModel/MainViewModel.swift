@@ -33,6 +33,7 @@ extension MainViewModel: MainViewModelInterface {
     }
     
     func viewDidLoad() {
+        view?.setUI()
         view?.setUIForSearch()
         view?.setDelegateUI()
         view?.setupTapGesture()

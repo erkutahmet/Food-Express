@@ -36,8 +36,9 @@ final class BasketPageViewController: UIViewController {
         viewModel.viewWillAppear()
     }
 
-    @IBAction private func placeOrderBtnClicked(_ sender: Any) {
+    @IBAction private func placeOrderBtnClicked(_ sender: UIButton) {
         overLayer.appear(sender: self, popUpType: .placeOrder)
+        sender.disableTemporarilyWithTapEffect()
     }
 }
 
@@ -105,6 +106,8 @@ extension BasketPageViewController: BasketPageViewInterface {
     func setUIDesign() {
         placeOrderBtn.layer.cornerRadius = 16
         placeOrderBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        placeOrderBtn.layer.borderColor = UIColor(hex: "#808080").cgColor
+        placeOrderBtn.layer.borderWidth = 1.0
     }
 
     func showAlertFromVM(title: String, message: String) {

@@ -38,7 +38,14 @@ extension CategoriesPageViewController: UICollectionViewDataSource {
     }
 }
 
-extension CategoriesPageViewController: UICollectionViewDelegate { }
+extension CategoriesPageViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let mainVC = TabBarViewController()
+        appDelegate.window?.rootViewController = mainVC
+        appDelegate.window?.makeKeyAndVisible()
+    }
+}
 
 extension CategoriesPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

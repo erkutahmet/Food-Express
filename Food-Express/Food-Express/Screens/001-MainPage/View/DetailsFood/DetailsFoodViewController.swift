@@ -26,6 +26,8 @@ final class DetailsFoodViewController: UIViewController {
     @IBOutlet private weak var amountLbl: UILabel!
     @IBOutlet private weak var favoriteBtn: UIButton!
     @IBOutlet private weak var addToBasketBtn: UIButton!
+    @IBOutlet private weak var plusBtn: UIButton!
+    @IBOutlet private weak var minusBtn: UIButton!
 
     private lazy var viewModel = DetailsViewModel()
     private lazy var overLayer = OverLayerPopUpViewController()
@@ -57,22 +59,25 @@ final class DetailsFoodViewController: UIViewController {
         }
     }
     
-    @IBAction private func addToBasketBtnClicked(_ sender: Any) {
+    @IBAction private func addToBasketBtnClicked(_ sender: UIButton) {
         viewModel.addFoodToBasket(parameters: getParameters())
+        sender.disableTemporarilyWithTapEffect()
     }
 
-    @IBAction private func minusBtnClicked(_ sender: Any) {
+    @IBAction private func minusBtnClicked(_ sender: UIButton) {
         if amount > 1 {
             amount -= 1
             amountLbl.text = String(amount)
             foodPriceLbl.text = String((Int(foodViewModel.yemekFiyat) ?? 1) * amount)
+            sender.changeButtonImageTemporarily(normalImageName: "minus", clickedImageName: "minusClicked")
         }
     }
 
-    @IBAction private func plusBtnClicked(_ sender: Any) {
+    @IBAction private func plusBtnClicked(_ sender: UIButton) {
         amount += 1
         amountLbl.text = String(amount)
         foodPriceLbl.text = String((Int(foodViewModel.yemekFiyat) ?? 1) * amount)
+        sender.changeButtonImageTemporarily(normalImageName: "plus", clickedImageName: "plusClicked")
     }
 }
 
@@ -80,6 +85,8 @@ extension DetailsFoodViewController: DetailsViewInterface {
     func setUI() {
         addToBasketBtn.layer.cornerRadius = 16
         addToBasketBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        addToBasketBtn.layer.borderColor = UIColor(hex: "#808080").cgColor
+        addToBasketBtn.layer.borderWidth = 1.0
     }
 
     func configResult() {
