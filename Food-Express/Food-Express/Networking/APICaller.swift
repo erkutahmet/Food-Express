@@ -155,6 +155,90 @@ public class APICaller {
         }
     }
 
+    static func fetchUserData(completion: @escaping (UserModel?, Error?) -> Void) {
+        guard let userID = NetworkConstant.shared.currentUser else {
+            completion(nil, NSError(domain: "AuthError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"]))
+            return
+        }
+        
+        let docRef = NetworkConstant.shared.firestoreDB.collection("Users").document(userID)
+        
+        docRef.getDocument { snapshot, error in
+            guard let data = snapshot?.data(), error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: data)
+                let userModel = try JSONDecoder().decode(UserModel.self, from: jsonData)
+                
+                completion(userModel, nil)
+            } catch {
+                completion(nil, error)
+            }
+        }
+    }
+
+    static func updateUserCredentials(userID: String, newMail: String?, newPassword: String?, completion: @escaping (Error?) -> Void) {
+        guard !userID.isEmpty else {
+            completion(NSError(domain: "UserIDError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"]))
+            return
+        }
+
+        let currentUser = Auth.auth().currentUser
+        let group = DispatchGroup()
+        var updateError: Error?
+        
+        // MARK: This can be change
+        if let mail = newMail {
+            group.enter()
+            currentUser?.updateEmail(to: mail) { error in
+                if let error = error {
+                    updateError = error
+                }
+                group.leave()
+            }
+        }
+
+        if let password = newPassword {
+            group.enter()
+            currentUser?.updatePassword(to: password) { error in
+                if let error = error {
+                    updateError = error
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            if let error = updateError {
+                completion(error)
+                return
+            }
+
+            var fieldsToUpdate: [String: Any] = [:]
+
+            if let mail = newMail {
+                fieldsToUpdate["user_info.user_mail"] = mail
+            }
+
+            if let password = newPassword {
+                fieldsToUpdate["user_info.user_password"] = password
+            }
+
+            if !fieldsToUpdate.isEmpty {
+                let docRef = NetworkConstant.shared.firestoreDB.collection("Users").document(userID)
+                docRef.updateData(fieldsToUpdate) { error in
+                    completion(error)
+                }
+            } else {
+                completion(nil)
+            }
+        }
+    }
+
+
     static func signOutUser(completionHandler: @escaping (Bool, String?) -> Void) {
         do {
             try Auth.auth().signOut()
