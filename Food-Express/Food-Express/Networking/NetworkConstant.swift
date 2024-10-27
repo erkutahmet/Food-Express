@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 final class NetworkConstant {
     
@@ -47,6 +48,12 @@ final class NetworkConstant {
     public var firestoreDB: Firestore {
         get {
             return Firestore.firestore()
+        }
+    }
+
+    public var currentUser: String? {
+        get {
+            return Auth.auth().currentUser?.uid
         }
     }
 }

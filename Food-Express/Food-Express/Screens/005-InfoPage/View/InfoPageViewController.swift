@@ -11,6 +11,7 @@ import FirebaseAuth
 protocol InfoPageViewInterface: AnyObject {
     func setUI()
     func showAlertFromVM(status: Bool, title: String, message: String)
+    func bindUserInfo(name: String, surname: String)
 }
 
 final class InfoPageViewController: UIViewController {
@@ -178,5 +179,10 @@ extension InfoPageViewController: InfoPageViewInterface {
         } else {
             self.errorShowAlert(title: title, message: message)
         }
+    }
+
+    func bindUserInfo(name: String, surname: String) {
+        self.nameLbl.text = name
+        self.surnameLbl.text = surname
     }
 }

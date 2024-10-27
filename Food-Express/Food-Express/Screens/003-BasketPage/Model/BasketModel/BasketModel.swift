@@ -50,7 +50,7 @@ struct AddFoodBasketParameters {
             "yemek_resim_adi": yemekResimAdi,
             "yemek_fiyat": yemekFiyat,
             "yemek_siparis_adet": yemekSiparisAdet,
-            "kullanici_adi": "123jsonparse123deneme"
+            "kullanici_adi": NetworkConstant.shared.currentUser ?? "foodExpress.defUser"
         ]
     }
 }
@@ -59,7 +59,7 @@ struct GetFoodBasketParameters {
 
     func toDict() -> [String: String] {
         return [
-            "kullanici_adi": "123jsonparse123deneme"
+            "kullanici_adi": NetworkConstant.shared.currentUser ?? "foodExpress.defUser"
         ]
     }
 }
@@ -70,7 +70,7 @@ struct DeleteFoodBasketParameters {
     func toDict() -> [String: String] {
         return [
             "sepet_yemek_id": sepetYemekID,
-            "kullanici_adi": "123jsonparse123deneme"
+            "kullanici_adi": NetworkConstant.shared.currentUser ?? "foodExpress.defUser"
         ]
     }
 }
