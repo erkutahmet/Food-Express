@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="infoContentLbl" destination="wQH-Ru-kXB" id="Tgh-5Y-D50"/>
                 <outlet property="infoContentTitleLbl" destination="WNM-Md-Xm7" id="0nk-6l-43h"/>
+                <outlet property="scrollView" destination="VZz-2q-Eu9" id="bTw-aX-fhb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
