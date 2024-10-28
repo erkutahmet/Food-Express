@@ -17,6 +17,7 @@ protocol BasketCollectionViewCellInterface {
     static var identifier: String { get }
     static func register() -> UINib
     func animateRemoval()
+    func setupCellUI()
 }
 
 final class BasketCollectionViewCell: UICollectionViewCell {
@@ -26,6 +27,8 @@ final class BasketCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var basketProductPriceLbl: UILabel!
     @IBOutlet private weak var basketProductAmountLbl: UILabel!
     @IBOutlet private weak var totalPriceLbl: UILabel!
+    @IBOutlet private weak var basketProductView: UIView!
+    @IBOutlet private weak var deleteView: UIView!
     
     weak var delegate: BasketCollectionViewDelegate?
 
@@ -53,6 +56,14 @@ extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
         self.basketProductAmountLbl.text = viewModel.yemekSiparisAdet
         self.basketProductImageView.af.setImage(withURL: viewModel.imageURL)
         self.totalPriceLbl.text = "\((Int(viewModel.yemekFiyat) ?? 1) * (Int(viewModel.yemekSiparisAdet) ?? 1))₺"
+    }
+
+    func setupCellUI() {
+        basketProductView.layer.cornerRadius = 16
+        basketProductView.layer.borderWidth = 2
+        basketProductView.layer.borderColor = UIColor.label.cgColor
+        
+        deleteView.layer.cornerRadius = 16
     }
 
     func animateRemoval() {

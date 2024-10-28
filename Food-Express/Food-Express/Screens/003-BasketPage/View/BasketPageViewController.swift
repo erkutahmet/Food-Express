@@ -43,13 +43,18 @@ final class BasketPageViewController: UIViewController {
 }
 
 extension BasketPageViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { cellDataSource.count }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let isDataSourceEmpty = cellDataSource.isEmpty
+        basketCollectionView.isHidden = isDataSourceEmpty
+        return isDataSourceEmpty ? 0 : cellDataSource.count
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCollectionViewCell.identifier, for: indexPath) as? BasketCollectionViewCell else { return UICollectionViewCell() }
         
         let items = self.cellDataSource[indexPath.item]
         cell.setupCell(viewModel: items)
+        cell.setupCellUI()
         cell.delegate = self
         return cell
     }
