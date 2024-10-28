@@ -180,8 +180,8 @@ public class APICaller {
         }
     }
 
-    static func updateUserCredentials(userID: String, newMail: String?, newPassword: String?, completion: @escaping (Error?) -> Void) {
-        guard !userID.isEmpty else {
+    static func updateUserCredentials(newMail: String?, newPassword: String?, completion: @escaping (Error?) -> Void) {
+        guard let userID = NetworkConstant.shared.currentUser else {
             completion(NSError(domain: "UserIDError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"]))
             return
         }
@@ -238,6 +238,113 @@ public class APICaller {
         }
     }
 
+    static func updateUserFavorites(newFavorite: Favorites, completion: @escaping (Error?) -> Void) {
+        guard let userID = NetworkConstant.shared.currentUser else {
+            completion(NSError(domain: "UserIDError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"]))
+            return
+        }
+        
+        let docRef = NetworkConstant.shared.firestoreDB.collection("Users").document(userID)
+        
+        docRef.getDocument { document, error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            guard let document = document, document.exists, let userData = try? document.data(as: UserModel.self) else {
+                completion(NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User data not found"]))
+                return
+            }
+            
+            var updatedFavorites = userData.user_favorites ?? []
+            
+            if let index = updatedFavorites.firstIndex(where: { $0.food_name == newFavorite.food_name }) {
+                updatedFavorites[index] = newFavorite
+            } else {
+                updatedFavorites.append(newFavorite)
+            }
+            
+            let fieldsToUpdate: [String: Any] = ["user_favorites": updatedFavorites.map { ["food_name": $0.food_name, "food_image": $0.food_image] }]
+            
+            docRef.updateData(fieldsToUpdate) { error in
+                if let error = error {
+                    completion(error)
+                } else {
+                    completion(nil)
+                    print("Favorites updated successfully!")
+                }
+            }
+        }
+    }
+
+    static func fetchUserFavorites(completion: @escaping ([Favorites]?, Error?) -> Void) {
+        guard let userID = NetworkConstant.shared.currentUser else {
+            completion(nil, NSError(domain: "UserIDError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"]))
+            return
+        }
+        
+        let docRef = NetworkConstant.shared.firestoreDB.collection("Users").document(userID)
+        
+        docRef.getDocument { document, error in
+            if let error = error {
+                completion(nil, error)
+                return
+            }
+            
+            guard let document = document, document.exists, let userData = try? document.data(as: UserModel.self) else {
+                completion(nil, NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User data not found"]))
+                return
+            }
+
+            let favorites = userData.user_favorites
+            completion(favorites, nil)
+        }
+    }
+
+    static func deleteUserFavorite(foodName: String, completion: @escaping (Error?) -> Void) {
+        guard let userID = NetworkConstant.shared.currentUser else {
+            completion(NSError(domain: "UserIDError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User ID is missing"]))
+            return
+        }
+        
+        let docRef = NetworkConstant.shared.firestoreDB.collection("Users").document(userID)
+        
+        docRef.getDocument { document, error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            guard let document = document, document.exists, let userData = try? document.data(as: UserModel.self) else {
+                completion(NSError(domain: "DataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "User data not found"]))
+                return
+            }
+            
+            guard var favorites = userData.user_favorites else {
+                completion(NSError(domain: "FavoritesError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No favorites found"]))
+                return
+            }
+            
+            if let index = favorites.firstIndex(where: { $0.food_name == foodName }) {
+                favorites.remove(at: index)
+            } else {
+                completion(NSError(domain: "DeleteError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Food not found in favorites"]))
+                return
+            }
+            
+            let fieldsToUpdate: [String: Any] = ["user_favorites": favorites.map { ["food_name": $0.food_name, "food_image": $0.food_image] }]
+            
+            docRef.updateData(fieldsToUpdate) { error in
+                if let error = error {
+                    completion(error)
+                } else {
+                    completion(nil)
+                    print("Favorite deleted successfully!")
+                }
+            }
+        }
+    }
 
     static func signOutUser(completionHandler: @escaping (Bool, String?) -> Void) {
         do {

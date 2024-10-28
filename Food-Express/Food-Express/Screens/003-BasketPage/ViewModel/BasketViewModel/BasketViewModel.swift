@@ -29,7 +29,6 @@ extension BasketViewModel: BasketViewModelInterface {
     func viewDidLoad() {
         view?.setUIDesign()
         view?.setDelegateUI()
-        getFoodsInBasket()
         view?.bindViewModel()
     }
 

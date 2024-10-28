@@ -20,7 +20,6 @@ protocol SettingsChangesPopUpViewInterface: AnyObject {
     func showDoneAlert(title: String, message: String)
     func validateEmailFields(currentUserMail: String) -> (isValid: Bool, errorMessage: String?)
     func validatePasswordFields(currentUserPassword: String) -> (isValid: Bool, errorMessage: String?)
-    func setButtonAvailable(is bool: Bool)
     func getUpdateValue() -> String?
 }
 
@@ -96,6 +95,8 @@ final class SettingsChangesPopUpViewController: UIViewController {
     @IBAction private func saveChangesBtnClicked(_ sender: UIButton) {
         guard let popUpType = popUpType else { return }
         
+        setButtonAvailable(is: false)
+        
         switch popUpType {
         case .email:
             viewModel.fetchUserInfo(from: .email)
@@ -121,6 +122,7 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
     
     func showDoneAlert(title: String, message: String) {
         self.errorShowAlert(title: title, message: message) {
+            self.setButtonAvailable(is: true)
             self.hide()
         }
     }
@@ -132,13 +134,16 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
                 let loginVC = LoginViewController()
                 appDelegate.window?.rootViewController = loginVC
                 appDelegate.window?.makeKeyAndVisible()
+                self.setButtonAvailable(is: true)
             }
         } else {
-            self.errorShowAlert(title: title, message: message)
+            self.errorShowAlert(title: title, message: message) {
+                self.setButtonAvailable(is: true)
+            }
         }
     }
 
-    func setButtonAvailable(is bool: Bool) {
+    private func setButtonAvailable(is bool: Bool) {
         if bool {
             saveChangesBtn.isEnabled = true
             saveChangesBtn.backgroundColor = UIColor.black
