@@ -14,6 +14,7 @@ protocol DetailsViewInterface: AnyObject {
     func getParameters() -> AddFoodBasketParameters
     func showAlert(status: Bool, title: String, message: String)
     func showPopUp(at popUpType: PopUpType)
+    func updateLikeButton(isLiked: Bool)
 }
 
 final class DetailsFoodViewController: UIViewController {
@@ -47,15 +48,15 @@ final class DetailsFoodViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
-        favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
     }
     
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
         if favoriteBtn.currentImage == UIImage(named: "favorite_unclicked") {
             favoriteBtn.setImage(UIImage(named: "favorite_clicked"), for: .normal)
-            viewModel.addToFavorite()
+            viewModel.addToFavorite(newFavorite: Favorites(food_name: foodViewModel.yemekAdi, food_image: foodViewModel.yemekResimAdi))
         } else {
             favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
+            viewModel.deleteFromFavorite(foodName: foodViewModel.yemekAdi)
         }
     }
     
@@ -87,6 +88,15 @@ extension DetailsFoodViewController: DetailsViewInterface {
         addToBasketBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
         addToBasketBtn.layer.borderColor = UIColor(hex: "#808080").cgColor
         addToBasketBtn.layer.borderWidth = 1.0
+        viewModel.isFavorite(foodName: foodViewModel.yemekAdi)
+    }
+
+    func updateLikeButton(isLiked: Bool) {
+        if isLiked {
+            favoriteBtn.setImage(UIImage(named: "favorite_clicked"), for: .normal)
+        } else {
+            favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
+        }
     }
 
     func configResult() {

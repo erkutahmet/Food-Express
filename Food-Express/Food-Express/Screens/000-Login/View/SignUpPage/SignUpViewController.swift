@@ -118,7 +118,7 @@ extension SignUpViewController: SignUpViewInterface {
     }
 
     func registerUserData(name: String, surname: String, email: String, password: String) -> UserModel {
-        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name, user_surname: surname, user_mail: email, user_password: password), user_favorites: nil)
+        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name, user_surname: surname, user_mail: email, user_password: password), user_favorites: [])
         return userInfo
     }
 

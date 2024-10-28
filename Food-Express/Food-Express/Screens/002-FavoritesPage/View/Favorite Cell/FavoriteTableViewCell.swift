@@ -7,36 +7,60 @@
 
 import UIKit
 
+protocol FavoriteCellInterface {
+    static var identifier: String { get }
+    static func register() -> UINib
+    func setupCell(viewModel: FavoritesModel, at indexPath: IndexPath)
+    func setCellUI()
+}
+
 final class FavoriteTableViewCell: UITableViewCell {
 
-    // TODO: buranin viewmodel'i olduktan sonra private olacak
-    @IBOutlet weak var favoriteImageView: UIImageView!
-    @IBOutlet weak var favoriteNameLbl: UILabel!
-    @IBOutlet weak var favoriteHeartImageView: UIImageView!
-    @IBOutlet weak var favoriteInfoLbl: UILabel!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var backGroundBlurView: UIView!
+    @IBOutlet private weak var favoriteImageView: UIImageView!
+    @IBOutlet private weak var favoriteNameLbl: UILabel!
+    @IBOutlet private weak var favoriteHeartImageView: UIImageView!
+    @IBOutlet private weak var favoriteInfoLbl: UILabel!
+    @IBOutlet private weak var bottomView: UIView!
+    @IBOutlet private weak var favoritesContentView: UIView!
+    @IBOutlet private weak var backGroundBlurView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setUI()
     }
+}
 
-    private func setUI() {
-        favoriteImageView.layer.cornerRadius = 16
-        favoriteImageView.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMinYCorner ]
-
-        bottomView.layer.cornerRadius = 16
-        bottomView.layer.maskedCorners = [ .layerMinXMaxYCorner, .layerMaxXMaxYCorner ]
-
-        backGroundBlurView.layer.cornerRadius = 16
-
-        favoriteHeartImageView.image = UIImage(systemName: "heart")
-        favoriteHeartImageView.tintColor = .black
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+extension FavoriteTableViewCell: FavoriteCellInterface {
+    static var identifier: String {
+        return "favoriteCell"
     }
     
+    static func register() -> UINib {
+        UINib(nibName: "FavoriteTableViewCell", bundle: nil)
+    }
+    
+    func setupCell(viewModel: FavoritesModel, at indexPath: IndexPath) {
+        self.favoriteNameLbl.text = viewModel.foodName
+        self.favoriteImageView.af.setImage(withURL: viewModel.foodImageUrl)
+        self.favoriteInfoLbl.text = FavoritesInfoConstants.favoriteDescriptions[indexPath.row]
+    }
+
+    func setCellUI() {
+        favoriteImageView.layer.cornerRadius = 16
+        favoriteImageView.layer.masksToBounds = true
+        
+        bottomView.layer.cornerRadius = 16
+        bottomView.layer.maskedCorners = [ .layerMinXMaxYCorner, .layerMaxXMaxYCorner ]
+        bottomView.layer.borderWidth = 1
+        bottomView.layer.borderColor = UIColor(named: "darkModeSpecialReverse")?.cgColor
+        bottomView.layer.masksToBounds = true
+
+        backGroundBlurView.layer.cornerRadius = 16
+        
+        favoritesContentView.layer.cornerRadius = 16
+        favoritesContentView.layer.borderWidth = 2
+        favoritesContentView.layer.borderColor = UIColor(named: "darkModeSpecialReverse")?.cgColor
+
+        favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
+        favoriteHeartImageView.tintColor = .systemRed
+    }
 }

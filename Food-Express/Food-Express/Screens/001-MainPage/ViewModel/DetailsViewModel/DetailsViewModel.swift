@@ -12,7 +12,9 @@ protocol DetailsViewModelInterface {
     
     func viewDidLoad()
     func addFoodToBasket(parameters: AddFoodBasketParameters)
-    func addToFavorite()
+    func addToFavorite(newFavorite: Favorites)
+    func deleteFromFavorite(foodName: String)
+    func isFavoriteOrNot(foodName: String, favorites: [Favorites]) -> Bool
 }
 
 final class DetailsViewModel {
@@ -46,8 +48,54 @@ extension DetailsViewModel: DetailsViewModelInterface {
         }
     }
 
-    func addToFavorite() {
-        self.view?.showPopUp(at: .favorite)
-        print("Favorilere eklendi.")
+    func addToFavorite(newFavorite: Favorites) {
+        APICaller.updateUserFavorites(newFavorite: newFavorite) { [ weak self ] error in
+            
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.view?.showAlert(status: false, title: "Failed", message: "Something went wrong while adding favorites.")
+                print("Failed to update favorites: \(error.localizedDescription)")
+            } else {
+                self.view?.showPopUp(at: .favorite)
+                print("Successfully added favorites!")
+            }
+        }
+    }
+
+    func deleteFromFavorite(foodName: String) {
+        APICaller.deleteUserFavorite(foodName: foodName) { [ weak self ] error in
+            
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.view?.showAlert(status: false, title: "Failed", message: "Something went wrong while removing from favorites.")
+                print("Failed to remove favorite: \(error.localizedDescription)")
+            } else {
+                self.view?.showAlert(status: false, title: "Success", message: "Successfully removed from favorites.")
+                print("Successfully removed from favorites.")
+            }
+        }
+    }
+    
+    func isFavorite(foodName: String) {
+        APICaller.fetchUserFavorites { [ weak self ] favorites, error in
+            
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Error fetching favorites: \(error)")
+                return
+            }
+            
+            guard let favorites = favorites else { return }
+            
+            let isLiked = self.isFavoriteOrNot(foodName: foodName, favorites: favorites)
+            view?.updateLikeButton(isLiked: isLiked)
+        }
+    }
+    
+    func isFavoriteOrNot(foodName: String, favorites: [Favorites]) -> Bool {
+        return favorites.contains(where: { $0.food_name == foodName })
     }
 }

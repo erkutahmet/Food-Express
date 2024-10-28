@@ -7,58 +7,83 @@
 
 import UIKit
 
+protocol FavoritesViewInterface: AnyObject {
+    func setUI()
+    func bindViewModel()
+    func reloadData()
+    func showAlert(status: Bool, title: String, message: String)
+}
+
 final class FavoritesPageViewController: UIViewController {
 
     @IBOutlet private weak var favoritesTableView: UITableView!
     private var selectedIndices: [Int: Bool] = [:]
+    
+    private lazy var viewModel = FavoritesViewModel()
+    private var cellDataSource = [FavoritesModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+        viewModel.view = self
+        viewModel.viewDidLoad()
     }
 
-    private func setUI() {
-        let nib = UINib(nibName: "FavoriteTableViewCell", bundle: nil)
-        favoritesTableView.register(nib, forCellReuseIdentifier: "favoriteCell")
-        favoritesTableView.delegate = self
-        favoritesTableView.dataSource = self
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
     }
 }
 
 extension FavoritesPageViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        let isDataSourceEmpty = cellDataSource.isEmpty
+        favoritesTableView.isHidden = isDataSourceEmpty
+        return isDataSourceEmpty ? 0 : cellDataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as! FavoriteTableViewCell
-        cell.favoriteImageView.image = UIImage(named: "aboutUs")
-        cell.favoriteNameLbl.text = "Hamburger"
-        cell.favoriteInfoLbl.text = "Your most favorite."
+        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
         
-        if let isSelected = selectedIndices[indexPath.row] {
-            if isSelected {
-                cell.favoriteHeartImageView.image = UIImage(systemName: "heart")
-                cell.favoriteHeartImageView.tintColor = .black
-            } else {
-                cell.favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
-                cell.favoriteHeartImageView.tintColor = .systemRed
-            }
-        } else {
-            cell.favoriteHeartImageView.image = UIImage(systemName: "heart.fill")
-            cell.favoriteHeartImageView.tintColor = .systemRed
-        }
+        let favorites = cellDataSource[indexPath.row]
+        cell.setupCell(viewModel: favorites, at: indexPath)
+        cell.setCellUI()
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let isSelected = selectedIndices[indexPath.row] {
-            selectedIndices[indexPath.row] = !isSelected
-        } else {
-            selectedIndices[indexPath.row] = true
-        }
-
+        viewModel.deleteFavorite(foodName: cellDataSource[indexPath.row].foodName)
         tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+}
+
+extension FavoritesPageViewController: FavoritesViewInterface {
+    func setUI() {
+        favoritesTableView.delegate = self
+        favoritesTableView.dataSource = self
+        favoritesTableView.register(FavoriteTableViewCell.register(), forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+    }
+    
+    func bindViewModel() {
+        viewModel.favorites.bind { [weak self] favorites in
+            guard let self = self, let favorite = favorites else { return }
+            
+            self.cellDataSource = favorite
+            self.reloadData()
+        }
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.favoritesTableView.reloadData()
+        }
+    }
+
+    func showAlert(status: Bool, title: String, message: String) {
+        if status {
+            successShowAlert(title: title, message: message, duration: 1.5)
+        } else {
+            errorShowAlert(title: title, message: message)
+        }
     }
 }

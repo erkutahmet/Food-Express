@@ -70,7 +70,7 @@ extension SettingsChangesPopUpViewModel: SettingsChangesPopUpViewModelInterface 
         }
         
         let newMail = view?.getUpdateValue() ?? ""
-        APICaller.updateUserCredentials(userID: userModel.user_uuid ?? "foodExpress.defUser", newMail: newMail, newPassword: userModel.user_info?.user_password) { error in
+        APICaller.updateUserCredentials(newMail: newMail, newPassword: userModel.user_info?.user_password) { error in
             if let error = error {
                 self.view?.showAlertFromVM(status: false, title: "Error", message: error.localizedDescription)
             } else {
@@ -91,7 +91,7 @@ extension SettingsChangesPopUpViewModel: SettingsChangesPopUpViewModelInterface 
         }
         
         let newPassword = view?.getUpdateValue() ?? ""
-        APICaller.updateUserCredentials(userID: userModel.user_uuid ?? "foodExpress.defUser", newMail: userModel.user_info?.user_mail, newPassword: newPassword) { error in
+        APICaller.updateUserCredentials(newMail: userModel.user_info?.user_mail, newPassword: newPassword) { error in
             if let error = error {
                 self.view?.showAlertFromVM(status: false, title: "Error", message: error.localizedDescription)
             } else {

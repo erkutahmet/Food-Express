@@ -24,3 +24,14 @@ struct Favorites: Codable {
     let food_name,
         food_image: String?
 }
+
+struct FavoritesModel {
+    let foodName, foodImage: String
+    let foodImageUrl: URL
+    
+    init(favorite: Favorites) {
+        self.foodName = favorite.food_name ?? ""
+        self.foodImage = favorite.food_image ?? ""
+        self.foodImageUrl = URL.makeImageUrl(from: self.foodImage)!
+    }
+}
