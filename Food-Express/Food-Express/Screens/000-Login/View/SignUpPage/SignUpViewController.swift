@@ -25,8 +25,6 @@ final class SignUpViewController: UIViewController {
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var confirmPassTextField: UITextField!
 
-    private var isPasswordVisible = false
-
     private lazy var viewModel = SignUpViewModel()
     
     override func viewDidLoad() {
@@ -35,14 +33,9 @@ final class SignUpViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
-    @IBAction private func signUpBtnClicked(_ sender: UIButton) {
-        sender.isEnabled = false
-        sender.backgroundColor = UIColor(hex: "#B3B3B3")
+    @IBAction private func signUpBtnClicked(_ sender: Any) {
         if !validateFields().isValid {
-            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.") {
-                sender.isEnabled = true
-                sender.backgroundColor = UIColor.black
-            }
+            errorShowAlert(title: "Error", message: validateFields().errorMessage ?? "An unexpected error occurred.")
         } else {
             viewModel.registerUser(data: registerUserData(name: nameTextField.text!,
                                                           surname: lastnameTextField.text!,
@@ -63,29 +56,32 @@ extension SignUpViewController: SignUpViewInterface {
         signupBackgroundView.layer.maskedCorners = [ .layerMinXMinYCorner ]
         signUpBtn.layer.cornerRadius = 12
         signUpBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        nameTextField.setPlaceholder("Ahmet")
-        lastnameTextField.setPlaceholder("ERKUT")
-        emailTextField.setPlaceholder("example@gmail.com")
-        passwordTextField.setPlaceholder("••••••••")
-        confirmPassTextField.setPlaceholder("••••••••")
     }
 
     func setupPasswordField() {
+        let eyeButton = createEyeButton(action: #selector(togglePasswordVisibility))
+        passwordTextField.rightView = eyeButton
+        passwordTextField.rightViewMode = .always
+
+        let eyeButton2 = createEyeButton(action: #selector(togglePasswordVisibility))
+        confirmPassTextField.rightView = eyeButton2
+        confirmPassTextField.rightViewMode = .always
+    }
+
+    private func createEyeButton(action: Selector) -> UIButton {
         let eyeButton = UIButton(type: .custom)
         eyeButton.tintColor = .systemGray
         eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
         eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
-        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        
-        passwordTextField.rightView = eyeButton
-        passwordTextField.rightViewMode = .always
+        eyeButton.addTarget(self, action: action, for: .touchUpInside)
+        return eyeButton
     }
-    
+
     @objc private func togglePasswordVisibility(sender: UIButton) {
-        isPasswordVisible.toggle()
-        passwordTextField.isSecureTextEntry = !isPasswordVisible
-        confirmPassTextField.isSecureTextEntry = !isPasswordVisible
-        sender.isSelected = isPasswordVisible
+        guard let textField = sender.superview as? UITextField else { return }
+        
+        textField.isSecureTextEntry.toggle()
+        sender.isSelected = !textField.isSecureTextEntry
     }
 
     func validateFields() -> (isValid: Bool, errorMessage: String?) {
@@ -118,22 +114,17 @@ extension SignUpViewController: SignUpViewInterface {
     }
 
     func registerUserData(name: String, surname: String, email: String, password: String) -> UserModel {
-        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name, user_surname: surname, user_mail: email, user_password: password), user_favorites: [])
+        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name, user_surname: surname, user_mail: email, user_password: password), user_favorites: nil)
         return userInfo
     }
 
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {
-                self.signUpBtn.isEnabled = true
-                self.signUpBtn.backgroundColor = UIColor.black
                 self.dismiss(animated: true)
             }
         } else {
-            self.errorShowAlert(title: title, message: message) {
-                self.signUpBtn.isEnabled = true
-                self.signUpBtn.backgroundColor = UIColor.black
-            }
+            self.errorShowAlert(title: title, message: message)
         }
     }
 }
