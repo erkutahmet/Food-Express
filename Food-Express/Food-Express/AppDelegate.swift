@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.overrideUserInterfaceStyle = (savedStyle == "dark") ? .dark : .light
         
         if UserDefaults.standard.bool(forKey: "isUserLoggedIn") {
-            let mainVC = TabBarViewController()
+            let mainVC = OnboardingViewController()
             window?.rootViewController = mainVC
         } else {
-            let loginVC = LoginViewController()
+            let loginVC = OnboardingViewController()
             window?.rootViewController = loginVC
         }
 

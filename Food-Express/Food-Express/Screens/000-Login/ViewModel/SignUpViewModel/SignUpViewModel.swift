@@ -11,7 +11,7 @@ protocol SignUpViewModelInterface {
     var view: SignUpViewInterface? { get set }
     
     func viewDidLoad()
-    func registerUser(data: UserModel)
+    func registerUser(data: UserModel, email: String, password: String)
 }
 
 final class SignUpViewModel {
@@ -24,7 +24,7 @@ extension SignUpViewModel: SignUpViewModelInterface {
         view?.setupPasswordField()
     }
 
-    func registerUser(data: UserModel) {
+    func registerUser(data: UserModel, email: String, password: String) {
         APICaller.registerUser(data: data) { [weak self] errorMessage in
             
             guard let self = self else { return }
@@ -32,7 +32,13 @@ extension SignUpViewModel: SignUpViewModelInterface {
             if let message = errorMessage {
                 self.view?.showAlertFromVM(status: false, title: "Registration Error", message: message)
             } else {
-                self.view?.showAlertFromVM(status: true, title: "Success", message: "User registered successfully.")
+                APICaller.loginUser(email: email, password: password) { success, message in
+                    if success {
+                        self.view?.showAlertFromVM(status: true, title: "Registration Successful", message: "Your account has been successfully created. You can now start using the app.")
+                    } else {
+                        self.view?.showAlertFromVM(status: false, title: "Unkown Error", message: "An unknown error occurred. Please try again.")
+                    }
+                }
             }
         }
     }
