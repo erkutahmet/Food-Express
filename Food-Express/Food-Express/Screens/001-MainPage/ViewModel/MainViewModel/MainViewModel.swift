@@ -36,7 +36,6 @@ extension MainViewModel: MainViewModelInterface {
         view?.setUI()
         view?.setUIForSearch()
         view?.setDelegateUI()
-        view?.setupTapGesture()
         getData()
         view?.bindViewModel()
     }

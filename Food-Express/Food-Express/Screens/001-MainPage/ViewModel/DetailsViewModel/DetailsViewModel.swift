@@ -11,6 +11,7 @@ protocol DetailsViewModelInterface {
     var view: DetailsViewInterface? { get set }
     
     func viewDidLoad()
+    func viewWillAppear()
     func addFoodToBasket(parameters: AddFoodBasketParameters)
     func addToFavorite(newFavorite: Favorites)
     func deleteFromFavorite(foodName: String)
@@ -26,6 +27,10 @@ extension DetailsViewModel: DetailsViewModelInterface {
     func viewDidLoad() {
         view?.setUI()
         view?.configResult()
+    }
+    
+    func viewWillAppear() {
+        view?.setFavoriteBtnUI()
     }
 
     func addFoodToBasket(parameters: AddFoodBasketParameters) {

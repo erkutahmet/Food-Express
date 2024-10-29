@@ -201,6 +201,7 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
         self.contentView.layer.cornerRadius = 20
         self.saveChangesBtn.layer.cornerRadius = 12
         self.saveChangesBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        setupDismissKeyboardOnTap()
         
         let eyeButton = createEyeButton(action: #selector(togglePasswordVisibility))
         oldinfoTextField.rightView = eyeButton
@@ -211,22 +212,6 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
         let eyeButton3 = createEyeButton(action: #selector(togglePasswordVisibility))
         confirmNewinfoTextField.rightView = eyeButton3
         confirmNewinfoTextField.rightViewMode = .always
-    }
-
-    @objc private func togglePasswordVisibility(sender: UIButton) {
-        guard let textField = sender.superview as? UITextField else { return }
-        
-        textField.isSecureTextEntry.toggle()
-        sender.isSelected = !textField.isSecureTextEntry
-    }
-
-    private func createEyeButton(action: Selector) -> UIButton {
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.tintColor = .systemGray
-        eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
-        eyeButton.addTarget(self, action: action, for: .touchUpInside)
-        return eyeButton
     }
 
     func updateUIForPopUpType() {

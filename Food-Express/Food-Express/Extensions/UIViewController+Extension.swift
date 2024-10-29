@@ -44,4 +44,29 @@ extension UIViewController {
         
         self.present(alertController, animated: true)
     }
+
+    func createEyeButton(action: Selector) -> UIButton {
+        let eyeButton = UIButton(type: .custom)
+        eyeButton.tintColor = .systemGray
+        eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
+        eyeButton.addTarget(self, action: action, for: .touchUpInside)
+        return eyeButton
+    }
+    
+    @objc func togglePasswordVisibility(sender: UIButton) {
+        guard let textField = sender.superview as? UITextField else { return }
+        
+        textField.isSecureTextEntry.toggle()
+        sender.isSelected = !textField.isSecureTextEntry
+    }
+
+    func setupDismissKeyboardOnTap() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

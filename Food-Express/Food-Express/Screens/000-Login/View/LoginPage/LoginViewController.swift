@@ -21,8 +21,6 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var loginBtn: UIButton!
 
-    private var isPasswordVisible = false
-
     private lazy var viewModel = LoginViewModel()
     
     override func viewDidLoad() {
@@ -58,23 +56,13 @@ extension LoginViewController: LoginViewInterface {
         loginBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         emailTextField.setPlaceholder("example@gmail.com")
         passwordTextField.setPlaceholder("••••••••")
+        setupDismissKeyboardOnTap()
     }
-    
+
     func setupPasswordField() {
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.tintColor = .systemGray
-        eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
-        eyeButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
-        
+        let eyeButton = createEyeButton(action: #selector(togglePasswordVisibility))
         passwordTextField.rightView = eyeButton
         passwordTextField.rightViewMode = .always
-    }
-    
-    @objc private func togglePasswordVisibility(sender: UIButton) {
-        isPasswordVisible.toggle()
-        passwordTextField.isSecureTextEntry = !isPasswordVisible
-        sender.isSelected = isPasswordVisible
     }
 
     func validateFields() -> (isValid: Bool, errorMessage: String?) {

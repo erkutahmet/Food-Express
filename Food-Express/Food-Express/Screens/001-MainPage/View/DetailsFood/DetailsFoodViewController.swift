@@ -15,6 +15,7 @@ protocol DetailsViewInterface: AnyObject {
     func showAlert(status: Bool, title: String, message: String)
     func showPopUp(at popUpType: PopUpType)
     func updateLikeButton(isLiked: Bool)
+    func setFavoriteBtnUI()
 }
 
 final class DetailsFoodViewController: UIViewController {
@@ -48,6 +49,11 @@ final class DetailsFoodViewController: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
     }
     
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
@@ -88,6 +94,9 @@ extension DetailsFoodViewController: DetailsViewInterface {
         addToBasketBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner]
         addToBasketBtn.layer.borderColor = UIColor(hex: "#808080").cgColor
         addToBasketBtn.layer.borderWidth = 1.0
+    }
+    
+    func setFavoriteBtnUI() {
         viewModel.isFavorite(foodName: foodViewModel.yemekAdi)
     }
 

@@ -16,7 +16,6 @@ protocol MainViewInterface: AnyObject {
     func reloadData()
     func bindViewModel()
     func openDetail(id foodId: String)
-    func setupTapGesture()
 }
 
 final class MainPageViewController: UIViewController {
@@ -110,6 +109,7 @@ extension MainPageViewController: MainViewInterface {
         backItem.title = ""
         backItem.tintColor = .label
         navigationItem.backBarButtonItem = backItem
+        setupDismissKeyboardOnTap()
     }
 
     func setDelegateUI() {
@@ -156,15 +156,5 @@ extension MainPageViewController: MainViewInterface {
         searchTextField.text = ""
         viewModel.searchHandler(contains: "")
         searchTextField.endEditing(true)
-    }
-
-    internal func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
-        view.addGestureRecognizer(tapGesture)
-    }
-
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
     }
 }

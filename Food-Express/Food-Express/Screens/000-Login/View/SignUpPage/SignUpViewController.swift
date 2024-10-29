@@ -56,6 +56,12 @@ extension SignUpViewController: SignUpViewInterface {
         signupBackgroundView.layer.maskedCorners = [ .layerMinXMinYCorner ]
         signUpBtn.layer.cornerRadius = 12
         signUpBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        nameTextField.setPlaceholder("Ahmet")
+        lastnameTextField.setPlaceholder("ERKUT")
+        emailTextField.setPlaceholder("example@gmail.com")
+        passwordTextField.setPlaceholder("••••••••")
+        confirmPassTextField.setPlaceholder("••••••••")
+        setupDismissKeyboardOnTap()
     }
 
     func setupPasswordField() {
@@ -66,22 +72,6 @@ extension SignUpViewController: SignUpViewInterface {
         let eyeButton2 = createEyeButton(action: #selector(togglePasswordVisibility))
         confirmPassTextField.rightView = eyeButton2
         confirmPassTextField.rightViewMode = .always
-    }
-
-    private func createEyeButton(action: Selector) -> UIButton {
-        let eyeButton = UIButton(type: .custom)
-        eyeButton.tintColor = .systemGray
-        eyeButton.setImage(UIImage(systemName: "eye"), for: .normal)
-        eyeButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
-        eyeButton.addTarget(self, action: action, for: .touchUpInside)
-        return eyeButton
-    }
-
-    @objc private func togglePasswordVisibility(sender: UIButton) {
-        guard let textField = sender.superview as? UITextField else { return }
-        
-        textField.isSecureTextEntry.toggle()
-        sender.isSelected = !textField.isSecureTextEntry
     }
 
     func validateFields() -> (isValid: Bool, errorMessage: String?) {
