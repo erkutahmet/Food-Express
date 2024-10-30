@@ -69,4 +69,18 @@ extension UIViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+
+    func setRootViewController(_ viewController: UIViewController, animated: Bool) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        if animated {
+            UIView.transition(with: appDelegate.window!, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                appDelegate.window?.rootViewController = viewController
+                appDelegate.window?.makeKeyAndVisible()
+            }, completion: nil)
+        } else {
+            appDelegate.window?.rootViewController = viewController
+            appDelegate.window?.makeKeyAndVisible()
+        }
+    }
 }

@@ -40,10 +40,7 @@ extension CategoriesPageViewController: UICollectionViewDataSource {
 
 extension CategoriesPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let mainVC = TabBarViewController()
-        appDelegate.window?.rootViewController = mainVC
-        appDelegate.window?.makeKeyAndVisible()
+        self.tabBarController?.selectedViewController = self.tabBarController?.viewControllers?.first
     }
 }
 

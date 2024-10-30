@@ -117,10 +117,7 @@ extension BasketPageViewController: BasketPageViewInterface {
 
     func showAlertFromVM(title: String, message: String) {
         errorShowAlert(title: title, message: message) {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let mainVC = TabBarViewController()
-            appDelegate.window?.rootViewController = mainVC
-            appDelegate.window?.makeKeyAndVisible()
+            self.tabBarController?.selectedViewController = self.tabBarController?.viewControllers?.first
         }
     }
 
