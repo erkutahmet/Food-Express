@@ -18,9 +18,21 @@ protocol OnboardingViewModelInterface {
 final class OnboardingViewModel {
     weak var view: OnbardingViewInterface?
     private var slides = [
-        OnboardingModel(title: "Delicious Dishes", description: "Experience a variety of amazing dishes from different cultures around the world.", image: "pasta"),
-        OnboardingModel(title: "World-Class Chefs", description: "Our dishes are prepared by only the best.", image: "pizza"),
-        OnboardingModel(title: "Instant World-Wide Delivery", description: "Your orders will be delivered instantly irrespective of your location around the world.", image: "salad")
+        OnboardingModel(
+            title: "Easy Ordering",
+            description: "Order your favorite meals in just a few taps. Quick and convenient! Choose from a variety of options.",
+            image: "onboarding_image_1"
+        ),
+        OnboardingModel(
+            title: "Exclusive Deals",
+            description: "Enjoy special discounts on your favorite dishes. Save more with us! Discover new offers every day.",
+            image: "onboarding_image_2"
+        ),
+        OnboardingModel(
+            title: "Quick Delivery",
+            description: "Ensure your meals arrive fresh at your door. Don't stay hungry! Our delivery team is always on time.",
+            image: "onboarding_image_3"
+        )
     ]
 }
 

@@ -68,17 +68,15 @@ extension InfoPageViewController: UITableViewDataSource {
     @objc func switchValueChanged(_ sender: UISwitch) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
 
-        if sender.isOn {
+        let newStyle: UIUserInterfaceStyle = sender.isOn ? .dark : .light
+
+        UIView.transition(with: windowScene.windows.first!, duration: 0.5, options: .transitionCrossDissolve, animations: {
             windowScene.windows.forEach { window in
-                window.overrideUserInterfaceStyle = .dark
+                window.overrideUserInterfaceStyle = newStyle
             }
-            UserDefaults.standard.set("dark", forKey: "userInterfaceStyle")
-        } else {
-            windowScene.windows.forEach { window in
-                window.overrideUserInterfaceStyle = .light
-            }
-            UserDefaults.standard.set("light", forKey: "userInterfaceStyle") 
-        }
+        }, completion: { _ in
+            UserDefaults.standard.set(newStyle == .dark ? "dark" : "light", forKey: "userInterfaceStyle")
+        })
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -171,10 +169,8 @@ extension InfoPageViewController: InfoPageViewInterface {
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let loginVC = LoginViewController()
-                appDelegate.window?.rootViewController = loginVC
-                appDelegate.window?.makeKeyAndVisible()
+                self.setRootViewController(loginVC, animated: true)
             }
         } else {
             self.errorShowAlert(title: title, message: message)

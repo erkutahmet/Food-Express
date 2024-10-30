@@ -87,10 +87,8 @@ extension LoginViewController: LoginViewInterface {
             self.successShowAlert(title: title, message: message) {
                 self.loginBtn.isEnabled = true
                 self.loginBtn.backgroundColor = UIColor.black
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let mainVC = TabBarViewController()
-                appDelegate.window?.rootViewController = mainVC
-                appDelegate.window?.makeKeyAndVisible()
+                self.setRootViewController(mainVC, animated: true)
             }
         } else {
             self.errorShowAlert(title: title, message: message) {

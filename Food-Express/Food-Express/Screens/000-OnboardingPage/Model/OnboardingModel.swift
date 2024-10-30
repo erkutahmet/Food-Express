@@ -10,5 +10,5 @@ import Foundation
 struct OnboardingModel {
     let title: String
     let description: String
-    let image: String // should be change with lottie or something
+    let image: String
 }

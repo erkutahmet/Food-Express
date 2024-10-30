@@ -67,7 +67,6 @@ extension MainPageViewController: UICollectionViewDataSource {
 
 extension MainPageViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         let foodId = cellDataSource[indexPath.item].yemekID
         openDetail(id: foodId)
     }
@@ -109,7 +108,6 @@ extension MainPageViewController: MainViewInterface {
         backItem.title = ""
         backItem.tintColor = .label
         navigationItem.backBarButtonItem = backItem
-        setupDismissKeyboardOnTap()
     }
 
     func setDelegateUI() {

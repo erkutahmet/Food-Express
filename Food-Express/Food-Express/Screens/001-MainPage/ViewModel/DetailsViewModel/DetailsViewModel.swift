@@ -15,11 +15,13 @@ protocol DetailsViewModelInterface {
     func addFoodToBasket(parameters: AddFoodBasketParameters)
     func addToFavorite(newFavorite: Favorites)
     func deleteFromFavorite(foodName: String)
+    func isFavorite(foodName: String)
     func isFavoriteOrNot(foodName: String, favorites: [Favorites]) -> Bool
 }
 
 final class DetailsViewModel {
     weak var view: DetailsViewInterface?
+    var isLiked = false
 }
 
 extension DetailsViewModel: DetailsViewModelInterface {
@@ -95,7 +97,7 @@ extension DetailsViewModel: DetailsViewModelInterface {
             
             guard let favorites = favorites else { return }
             
-            let isLiked = self.isFavoriteOrNot(foodName: foodName, favorites: favorites)
+            isLiked = self.isFavoriteOrNot(foodName: foodName, favorites: favorites)
             view?.updateLikeButton(isLiked: isLiked)
         }
     }

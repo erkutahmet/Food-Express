@@ -23,7 +23,7 @@ final class OnboardingViewController: UIViewController {
     @IBOutlet private weak var yellowView: UIView!
     
     private lazy var viewModel = OnboardingViewModel()
-
+    
     private var currentPage = 0 {
         didSet {
             if currentPage == viewModel.numberOfItems() - 1 {
@@ -46,9 +46,20 @@ final class OnboardingViewController: UIViewController {
         viewModel.viewDidLoad()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        for cell in onboardingCollectionView.visibleCells {
+            if let onboardingCell = cell as? OnboardingCollectionViewCell {
+                onboardingCell.removeAllAnimations()
+            }
+        }
+    }
+
     @IBAction private func nextBtnClicked(_ sender: Any) {
         if currentPage == viewModel.numberOfItems() - 1 {
-            print("Main sayfaya yolla")
+            let mainVC = TabBarViewController()
+            self.setRootViewController(mainVC, animated: true)
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section: 0)
@@ -76,6 +87,7 @@ extension OnboardingViewController: UICollectionViewDataSource {
         let item = viewModel.setUpCell(at: indexPath)
         
         cell.setUp(item)
+        cell.blinkAnimation()
         
         return cell
     }

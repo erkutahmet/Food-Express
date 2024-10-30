@@ -119,11 +119,8 @@ extension SignUpViewController: SignUpViewInterface {
             self.successShowAlert(title: title, message: message) {
                 self.signUpBtn.isEnabled = true
                 self.signUpBtn.backgroundColor = UIColor.black
-                print("onboardinge yollanılacak")
-//                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//                let mainVC = TabBarViewController()
-//                appDelegate.window?.rootViewController = mainVC
-//                appDelegate.window?.makeKeyAndVisible()
+                let onboardingVC = OnboardingViewController()
+                self.setRootViewController(onboardingVC, animated: true)
             }
         } else {
             self.errorShowAlert(title: title, message: message) {
