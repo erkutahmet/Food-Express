@@ -113,10 +113,8 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
                 let loginVC = LoginViewController()
-                appDelegate.window?.rootViewController = loginVC
-                appDelegate.window?.makeKeyAndVisible()
+                self.setRootViewController(loginVC, animated: true)
                 self.setButtonAvailable(is: true)
             }
         } else {
@@ -189,6 +187,10 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
         
         guard confirmNewPassword == newPassword else {
             return (false, "New passwords do not match.")
+        }
+
+        guard oldPassword != newPassword else {
+            return (false, "New password cannot be the same as the current password.")
         }
         
         return (true, nil)
