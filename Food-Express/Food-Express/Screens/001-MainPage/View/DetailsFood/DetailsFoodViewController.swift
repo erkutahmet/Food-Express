@@ -57,7 +57,7 @@ final class DetailsFoodViewController: UIViewController {
     }
     
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
-        if favoriteBtn.currentImage == UIImage(named: "favorite_unclicked") {
+        if !viewModel.isLiked {
             favoriteBtn.setImage(UIImage(named: "favorite_clicked"), for: .normal)
             viewModel.addToFavorite(newFavorite: Favorites(food_name: foodViewModel.yemekAdi, food_image: foodViewModel.yemekResimAdi))
         } else {
