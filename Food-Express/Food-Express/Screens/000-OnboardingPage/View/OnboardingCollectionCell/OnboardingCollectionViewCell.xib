@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUm-rh-YkQ">
-                        <rect key="frame" x="48" y="538" width="297" height="36"/>
+                        <rect key="frame" x="48" y="522" width="297" height="36"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="djH-Cq-YVQ"/>
                         </constraints>
@@ -27,19 +26,27 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeF-AF-tg7">
-                        <rect key="frame" x="32" y="606" width="329" height="72"/>
+                        <rect key="frame" x="32" y="590" width="329" height="72"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="72" id="ZhM-fx-zpe"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <color key="textColor" systemColor="systemGray5Color"/>
+                        <color key="textColor" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Cv-2H-mVV">
-                        <rect key="frame" x="0.0" y="104" width="393" height="350"/>
+                        <rect key="frame" x="0.0" y="80" width="393" height="374"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H2e-eU-hqg">
+                                <rect key="frame" x="16" y="0.0" width="361" height="374"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="250" constant="350" id="5Gw-wU-FH1"/>
+                            <constraint firstAttribute="bottom" secondItem="H2e-eU-hqg" secondAttribute="bottom" id="GdI-Hv-ALF"/>
+                            <constraint firstItem="H2e-eU-hqg" firstAttribute="top" secondItem="3Cv-2H-mVV" secondAttribute="top" id="Tto-hF-gMr"/>
+                            <constraint firstAttribute="trailing" secondItem="H2e-eU-hqg" secondAttribute="trailing" constant="16" id="XN1-2I-eIh"/>
+                            <constraint firstItem="H2e-eU-hqg" firstAttribute="leading" secondItem="3Cv-2H-mVV" secondAttribute="leading" constant="16" id="dyk-Xt-5xE"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -50,24 +57,21 @@
                 <constraint firstAttribute="trailing" secondItem="kUm-rh-YkQ" secondAttribute="trailing" constant="48" id="9Rl-pr-8js"/>
                 <constraint firstItem="NeF-AF-tg7" firstAttribute="top" secondItem="kUm-rh-YkQ" secondAttribute="bottom" constant="32" id="D6Q-JC-MLR"/>
                 <constraint firstItem="NeF-AF-tg7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="32" id="Ehx-ut-80W"/>
-                <constraint firstAttribute="bottom" secondItem="NeF-AF-tg7" secondAttribute="bottom" constant="16" id="Fei-yf-cpx"/>
+                <constraint firstAttribute="bottom" secondItem="NeF-AF-tg7" secondAttribute="bottom" constant="32" id="Fei-yf-cpx"/>
                 <constraint firstAttribute="trailing" secondItem="NeF-AF-tg7" secondAttribute="trailing" constant="32" id="Mrb-po-3hJ"/>
                 <constraint firstAttribute="trailing" secondItem="3Cv-2H-mVV" secondAttribute="trailing" id="PBd-sF-XCV"/>
+                <constraint firstItem="3Cv-2H-mVV" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="80" id="U60-xO-AWt"/>
                 <constraint firstItem="3Cv-2H-mVV" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XVA-Iq-GQu"/>
-                <constraint firstItem="kUm-rh-YkQ" firstAttribute="top" secondItem="3Cv-2H-mVV" secondAttribute="bottom" constant="84" id="Xhk-cN-Alq"/>
+                <constraint firstItem="kUm-rh-YkQ" firstAttribute="top" secondItem="3Cv-2H-mVV" secondAttribute="bottom" constant="68" id="Xhk-cN-Alq"/>
             </constraints>
             <size key="customSize" width="310" height="468"/>
             <connections>
                 <outlet property="contentLabel" destination="NeF-AF-tg7" id="HjO-ZO-l15"/>
                 <outlet property="onboardingAnimView" destination="3Cv-2H-mVV" id="CeB-1M-AQu"/>
+                <outlet property="onboardingImageView" destination="H2e-eU-hqg" id="Om1-88-2qJ"/>
                 <outlet property="titleLabel" destination="kUm-rh-YkQ" id="bAR-BE-TDX"/>
             </connections>
             <point key="canvasLocation" x="314.50381679389312" y="135.91549295774649"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>
