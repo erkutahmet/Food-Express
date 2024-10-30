@@ -1,4 +1,4 @@
-# [🍽️ Food Express App](https://www.linkedin.com/posts/ahmett-erkut_%F0%9D%90%84%F0%9D%90%AF%F0%9D%90%9C%F0%9D%90%A2%F0%9D%90%A5-%F0%9D%90%A1%F0%9D%90%9A%F0%9D%90%B2%F0%9D%90%AF%F0%9D%90%9A%F0%9D%90%A7-%F0%9D%90%AC%F0%9D%90%9A%F0%9D%90%A1%F0%9D%90%A2%F0%9D%90%A9%F0%9D%90%A5%F0%9D%90%9E-activity-7244126130700472321-4J_4?utm_source=share&utm_medium=member_desktop)
+# [🍽️ Food Express App]()
 
 The **Food Express** app is a mobile application designed for food enthusiasts who want to easily manage their meal preferences and orders. Developed for the iOS platform using Swift and the UIKit framework, this app offers a seamless experience for users to explore their food options.
 
