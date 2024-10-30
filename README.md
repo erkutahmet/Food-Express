@@ -34,7 +34,7 @@ Here are the main technologies and tools I used to develop the Food Express appl
 - **Alamofire** 🌐
 - **FirebaseAuth** 🔐
 - **FirebaseFirestore** 💾
-- **Cocoapods** 📦
+- **SPM (Swift Package Manager)** 📦
 
 ## 🔧 Installation
 
