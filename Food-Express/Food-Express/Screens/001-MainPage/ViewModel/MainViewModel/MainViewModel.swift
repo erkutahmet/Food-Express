@@ -31,7 +31,7 @@ final class MainViewModel {
 extension MainViewModel: MainViewModelInterface {
     func viewDidAppear() {
     }
-    
+
     func viewDidLoad() {
         view?.setUI()
         view?.setUIForSearch()
@@ -50,9 +50,9 @@ extension MainViewModel: MainViewModelInterface {
 
     func getData() {
         APICaller.getAllFoods { [weak self] result in
-            
+
             guard let self = self else { return }
-            
+
             switch result {
             case .success(let data):
                 self.dataSource = data
@@ -63,7 +63,7 @@ extension MainViewModel: MainViewModelInterface {
         }
     }
     func mapCellData() {
-        self.allFoods = self.dataSource?.yemekler?.compactMap( {FoodViewModel(food: $0)} ) ?? []
+        self.allFoods = self.dataSource?.yemekler?.compactMap({FoodViewModel(food: $0)}) ?? []
         self.cellDataSource.value = self.allFoods
     }
 
@@ -71,13 +71,13 @@ extension MainViewModel: MainViewModelInterface {
         guard let food = dataSource?.yemekler?.first(where: {$0.yemek_id == id}) else { return nil }
         return food
     }
-    
+
     func searchHandler(contains searchText: String) {
         guard !searchText.isEmpty else {
             self.cellDataSource.value = allFoods
             return
         }
-        
+
         let filteredData = allFoods.filter { food in
             return food.yemekAdi.lowercased().contains(searchText.lowercased())
         }

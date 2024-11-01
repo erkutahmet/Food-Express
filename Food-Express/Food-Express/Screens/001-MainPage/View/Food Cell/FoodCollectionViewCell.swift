@@ -20,20 +20,17 @@ final class FoodCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var foodInfoLbl: UILabel!
     @IBOutlet private weak var foodBackView: UIView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }
 
 extension FoodCollectionViewCell: FoodCellInterface {
     static var identifier: String {
-        return "foodCell"
+        return String(describing: self)
     }
-    
+
     static func register() -> UINib {
-        UINib(nibName: "FoodCollectionViewCell", bundle: nil)
+        UINib(nibName: String(describing: self), bundle: nil)
     }
-    
+
     func setupCell(viewModel: FoodViewModel) {
         self.foodInfoLbl.text = "\(viewModel.yemekAdi)\n\(viewModel.yemekFiyat)₺"
         self.foodImageView.af.setImage(withURL: viewModel.imageURL)

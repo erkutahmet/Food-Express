@@ -22,7 +22,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var loginBtn: UIButton!
 
     private lazy var viewModel = LoginViewModel()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -74,7 +74,7 @@ extension LoginViewController: LoginViewInterface {
         guard let password = passwordTextField.text, !password.isEmpty else {
             return (false, "Please enter your password.")
         }
-        
+
         guard password.count >= 6 else {
             return (false, "Password must be at least 6 characters long.")
         }

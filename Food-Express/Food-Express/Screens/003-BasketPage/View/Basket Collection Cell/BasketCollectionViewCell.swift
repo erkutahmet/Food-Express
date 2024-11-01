@@ -29,25 +29,22 @@ final class BasketCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var totalPriceLbl: UILabel!
     @IBOutlet private weak var basketProductView: UIView!
     @IBOutlet private weak var deleteView: UIView!
-    
+
     weak var delegate: BasketCollectionViewDelegate?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
     @IBAction private func deleteBtnClicked(_ sender: Any) {
         delegate?.didRequestDelete(self)
     }
 }
 
 extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
+
     static var identifier: String {
-        return "basketCell"
+        return String(describing: self)
     }
-    
+
     static func register() -> UINib {
-        UINib(nibName: "BasketCollectionViewCell", bundle: nil)
+        UINib(nibName: String(describing: self), bundle: nil)
     }
 
     func setupCell(viewModel: ViewBasketModel) {
@@ -62,7 +59,7 @@ extension BasketCollectionViewCell: BasketCollectionViewCellInterface {
         basketProductView.layer.cornerRadius = 16
         basketProductView.layer.borderWidth = 2
         basketProductView.layer.borderColor = UIColor.label.cgColor
-        
+
         deleteView.layer.cornerRadius = 16
     }
 

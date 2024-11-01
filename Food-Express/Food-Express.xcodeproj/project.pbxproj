@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DC52FE932CC8A91A00FFB644 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DC52FE922CC8A91A00FFB644 /* FirebaseAuth */; };
-		DC52FE952CC8A91A00FFB644 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DC52FE942CC8A91A00FFB644 /* FirebaseCore */; };
-		DC52FE972CC8A91A00FFB644 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DC52FE962CC8A91A00FFB644 /* FirebaseFirestore */; };
-		DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC8ACD692CB6055900790618 /* Alamofire */; };
-		DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DCC578712CB8061600CC5D4C /* AlamofireImage */; };
+		DC459DE02CD4F16E00201F06 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DC459DDF2CD4F16E00201F06 /* FirebaseAuth */; };
+		DC459DE22CD4F16E00201F06 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = DC459DE12CD4F16E00201F06 /* FirebaseCore */; };
+		DC459DE42CD4F16E00201F06 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DC459DE32CD4F16E00201F06 /* FirebaseFirestore */; };
+		DC459DEC2CD4F20E00201F06 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = DC459DEB2CD4F20E00201F06 /* Alamofire */; };
+		DC871C922CD4F62200ABE6EC /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DC871C912CD4F62200ABE6EC /* AlamofireImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,11 +44,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC8ACD6A2CB6055900790618 /* Alamofire in Frameworks */,
-				DC52FE932CC8A91A00FFB644 /* FirebaseAuth in Frameworks */,
-				DC52FE952CC8A91A00FFB644 /* FirebaseCore in Frameworks */,
-				DC52FE972CC8A91A00FFB644 /* FirebaseFirestore in Frameworks */,
-				DCC578722CB8061600CC5D4C /* AlamofireImage in Frameworks */,
+				DC459DE22CD4F16E00201F06 /* FirebaseCore in Frameworks */,
+				DC459DEC2CD4F20E00201F06 /* Alamofire in Frameworks */,
+				DC871C922CD4F62200ABE6EC /* AlamofireImage in Frameworks */,
+				DC459DE02CD4F16E00201F06 /* FirebaseAuth in Frameworks */,
+				DC459DE42CD4F16E00201F06 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,11 +91,11 @@
 			);
 			name = "Food-Express";
 			packageProductDependencies = (
-				DC8ACD692CB6055900790618 /* Alamofire */,
-				DCC578712CB8061600CC5D4C /* AlamofireImage */,
-				DC52FE922CC8A91A00FFB644 /* FirebaseAuth */,
-				DC52FE942CC8A91A00FFB644 /* FirebaseCore */,
-				DC52FE962CC8A91A00FFB644 /* FirebaseFirestore */,
+				DC459DDF2CD4F16E00201F06 /* FirebaseAuth */,
+				DC459DE12CD4F16E00201F06 /* FirebaseCore */,
+				DC459DE32CD4F16E00201F06 /* FirebaseFirestore */,
+				DC459DEB2CD4F20E00201F06 /* Alamofire */,
+				DC871C912CD4F62200ABE6EC /* AlamofireImage */,
 			);
 			productName = "Food-Express";
 			productReference = DCDC62F42CB21B6700D51E16 /* Food-Express.app */;
@@ -126,9 +126,9 @@
 			mainGroup = DCDC62EB2CB21B6700D51E16;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */,
-				DC52FE912CC8A91A00FFB644 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DC459DDE2CD4F16E00201F06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DC459DEA2CD4F20E00201F06 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				DC871C902CD4F62200ABE6EC /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DCDC62F52CB21B6700D51E16 /* Products */;
@@ -169,6 +169,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3755NX4L2K;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Food-Express/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -197,6 +198,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3755NX4L2K;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Food-Express/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -360,7 +362,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DC52FE912CC8A91A00FFB644 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		DC459DDE2CD4F16E00201F06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -368,17 +370,17 @@
 				minimumVersion = 11.4.0;
 			};
 		};
-		DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+		DC459DEA2CD4F20E00201F06 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.9.1;
+				minimumVersion = 5.10.1;
 			};
 		};
-		DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+		DC871C902CD4F62200ABE6EC /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.3.0;
@@ -387,29 +389,29 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DC52FE922CC8A91A00FFB644 /* FirebaseAuth */ = {
+		DC459DDF2CD4F16E00201F06 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC52FE912CC8A91A00FFB644 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = DC459DDE2CD4F16E00201F06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		DC52FE942CC8A91A00FFB644 /* FirebaseCore */ = {
+		DC459DE12CD4F16E00201F06 /* FirebaseCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC52FE912CC8A91A00FFB644 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = DC459DDE2CD4F16E00201F06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
 		};
-		DC52FE962CC8A91A00FFB644 /* FirebaseFirestore */ = {
+		DC459DE32CD4F16E00201F06 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC52FE912CC8A91A00FFB644 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = DC459DDE2CD4F16E00201F06 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		DC8ACD692CB6055900790618 /* Alamofire */ = {
+		DC459DEB2CD4F20E00201F06 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DC8ACD682CB6055900790618 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			package = DC459DEA2CD4F20E00201F06 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
-		DCC578712CB8061600CC5D4C /* AlamofireImage */ = {
+		DC871C912CD4F62200ABE6EC /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DCC578702CB8061600CC5D4C /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DC871C902CD4F62200ABE6EC /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */

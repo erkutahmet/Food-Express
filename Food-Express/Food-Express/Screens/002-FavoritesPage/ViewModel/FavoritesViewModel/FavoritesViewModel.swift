@@ -9,7 +9,7 @@ import Foundation
 
 protocol FavoritesViewModelInterface {
     var view: FavoritesViewInterface? { get set }
-    
+
     func viewDidLoad()
     func viewWillAppear()
     func getData()
@@ -30,11 +30,11 @@ extension FavoritesViewModel: FavoritesViewModelInterface {
         getData()
         view?.bindViewModel()
     }
-    
+
     func getData() {
         APICaller.fetchUserFavorites { [weak self] favorites, error in
             guard let self = self else { return }
-            
+
             if let error = error {
                 print("Failed to fetch favorites: \(error.localizedDescription)")
             } else if let favorites = favorites {
@@ -46,13 +46,17 @@ extension FavoritesViewModel: FavoritesViewModelInterface {
     func deleteFavorite(foodName: String) {
         APICaller.deleteUserFavorite(foodName: foodName) { [weak self] error in
             guard let self = self else { return }
-            
+
             if let error = error {
-                self.view?.showAlert(status: false, title: "Failed", message: "Something went wrong while removing from favorites.")
+                self.view?.showAlert(status: false,
+                                     title: "Failed",
+                                     message: "Something went wrong while removing from favorites.")
                 print("Failed to remove favorite: \(error.localizedDescription)")
             } else {
                 self.getData()
-                self.view?.showAlert(status: true, title: "Success", message: "Successfully removed from favorites.")
+                self.view?.showAlert(status: true,
+                                     title: "Success",
+                                     message: "Successfully removed from favorites.")
                 print("Successfully removed from favorites.")
             }
         }

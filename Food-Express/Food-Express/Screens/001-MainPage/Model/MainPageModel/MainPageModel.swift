@@ -19,7 +19,7 @@ struct Foods: Codable {
 struct FoodViewModel {
     let yemekID, yemekAdi, yemekResimAdi, yemekFiyat: String
     let imageURL: URL
-    
+
     init(food: Foods) {
         self.yemekID = food.yemek_id ?? ""
         self.yemekAdi = food.yemek_adi ?? ""

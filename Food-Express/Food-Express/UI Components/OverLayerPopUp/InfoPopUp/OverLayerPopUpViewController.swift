@@ -23,21 +23,21 @@ final class OverLayerPopUpViewController: UIViewController {
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var symbolImageView: UIImageView!
     @IBOutlet private weak var messageLabel: UILabel!
-    
+
     @IBOutlet weak var symbolImageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var symbolImageViewWidthConstraint: NSLayoutConstraint!
 
     private var popUpType: PopUpType?
-    
+
     init() {
         super.init(nibName: "OverLayerPopUpViewController", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configView()
@@ -56,7 +56,7 @@ final class OverLayerPopUpViewController: UIViewController {
 
     private func updateUIForPopUpType() {
         guard let popUpType = popUpType else { return }
-        
+
         switch popUpType {
         case .favorite:
             symbolImageViewWidthConstraint.constant = 48
@@ -64,14 +64,14 @@ final class OverLayerPopUpViewController: UIViewController {
             symbolImageView.image = UIImage(systemName: "heart")
             symbolImageView.tintColor = .darkGray
             messageLabel.text = "Great! The item has been added to your favorites. You can visit your favorites anytime you like."
-            
+
         case .addToBasket:
             symbolImageViewWidthConstraint.constant = 48
             symbolImageViewHeightConstraint.constant = 48
             symbolImageView.image = UIImage(systemName: "info.circle")
             symbolImageView.tintColor = .lightGray
             messageLabel.text = "Great choice! If you'd like to proceed with the item in your cart, you can complete your order."
-        
+
         case .placeOrder:
             symbolImageViewWidthConstraint.constant = 120
             symbolImageViewHeightConstraint.constant = 120
@@ -90,36 +90,36 @@ final class OverLayerPopUpViewController: UIViewController {
             }
         }
     }
-    
+
     private func standartIconForPopUpType() {
         guard let popUpType = popUpType else { return }
-        
+
         switch popUpType {
         case .favorite:
             symbolImageView.image = UIImage(systemName: "heart")
             symbolImageView.tintColor = .darkGray
-            
+
         case .addToBasket:
             symbolImageView.image = UIImage(systemName: "info.circle")
             symbolImageView.tintColor = .lightGray
-            
+
         case .placeOrder:
             symbolImageView.tintColor = .darkGray
         }
     }
-    
+
     private func animateIconForPopUpType() {
         guard let popUpType = popUpType else { return }
-        
+
         switch popUpType {
         case .favorite:
             self.symbolImageView.image = UIImage(systemName: "heart.fill")
             self.symbolImageView.tintColor = .red
-            
+
         case .addToBasket:
             self.symbolImageView.image = UIImage(systemName: "info.circle.fill")
             self.symbolImageView.tintColor = .darkGray
-            
+
         case .placeOrder:
             self.symbolImageView.tintColor = .green
         }

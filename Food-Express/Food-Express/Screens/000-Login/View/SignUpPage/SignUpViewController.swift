@@ -26,7 +26,7 @@ final class SignUpViewController: UIViewController {
     @IBOutlet private weak var confirmPassTextField: UITextField!
 
     private lazy var viewModel = SignUpViewModel()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -49,14 +49,14 @@ final class SignUpViewController: UIViewController {
                                    password: passwordTextField.text!)
         }
     }
-    
+
     @IBAction private func signInBtnClicked(_ sender: Any) {
         self.dismiss(animated: true)
     }
 }
 
 extension SignUpViewController: SignUpViewInterface {
-    
+
     func setUI() {
         signupBackgroundView.layer.cornerRadius = 72
         signupBackgroundView.layer.maskedCorners = [ .layerMinXMinYCorner ]
@@ -85,7 +85,7 @@ extension SignUpViewController: SignUpViewInterface {
         guard let name = nameTextField.text, !name.isEmpty else {
             return (false, "Please enter your name.")
         }
-        
+
         guard let surname = lastnameTextField.text, !surname.isEmpty else {
             return (false, "Please enter your surname.")
         }
@@ -97,12 +97,14 @@ extension SignUpViewController: SignUpViewInterface {
         guard let password = passwordTextField.text, !password.isEmpty else {
             return (false, "Please enter your password.")
         }
-        
+
         guard password.count >= 6 else {
             return (false, "Password must be at least 6 characters long.")
         }
 
-        guard let confirmPassword = confirmPassTextField.text, !confirmPassword.isEmpty, password == confirmPassword else {
+        guard let confirmPassword = confirmPassTextField.text,
+              !confirmPassword.isEmpty,
+              password == confirmPassword else {
             return (false, "Passwords do not match.")
         }
 
@@ -110,7 +112,11 @@ extension SignUpViewController: SignUpViewInterface {
     }
 
     func registerUserData(name: String, surname: String, email: String, password: String) -> UserModel {
-        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name, user_surname: surname, user_mail: email, user_password: password), user_favorites: nil)
+        let userInfo = UserModel.init(user_info: UserInfo.init(user_name: name,
+                                                               user_surname: surname,
+                                                               user_mail: email,
+                                                               user_password: password),
+                                                               user_favorites: [])
         return userInfo
     }
 

@@ -8,18 +8,24 @@
 import UIKit
 
 extension UIViewController {
-    func errorShowAlert(title: String, message: String, buttonTitle: String = "Okay", completion: (() -> Void)? = nil) {
+    func errorShowAlert(title: String,
+                        message: String,
+                        buttonTitle: String = "Okay",
+                        completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: buttonTitle, style: .default, handler: { _ in
             completion?()
         }))
         self.present(alertController, animated: true)
     }
-    
-    func successShowAlert(title: String, message: String, duration: TimeInterval = 3.0, completion: (() -> Void)? = nil) {
+
+    func successShowAlert(title: String,
+                          message: String,
+                          duration: TimeInterval = 3.0,
+                          completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         self.present(alertController, animated: true)
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             alertController.dismiss(animated: true) {
                 completion?()
@@ -27,21 +33,22 @@ extension UIViewController {
         }
     }
 
-    func errorShowAlertWithOptions(title: String, message: String,
-                        okButtonTitle: String = "Okay",
-                        cancelButtonTitle: String = "Cancel",
-                        okCompletion: (() -> Void)? = nil,
-                        cancelCompletion: (() -> Void)? = nil) {
+    func errorShowAlertWithOptions(title: String,
+                                   message: String,
+                                   okButtonTitle: String = "Okay",
+                                   cancelButtonTitle: String = "Cancel",
+                                   okCompletion: (() -> Void)? = nil,
+                                   cancelCompletion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
+
         alertController.addAction(UIAlertAction(title: okButtonTitle, style: .destructive, handler: { _ in
             okCompletion?()
         }))
-        
+
         alertController.addAction(UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: { _ in
             cancelCompletion?()
         }))
-        
+
         self.present(alertController, animated: true)
     }
 
@@ -53,10 +60,10 @@ extension UIViewController {
         eyeButton.addTarget(self, action: action, for: .touchUpInside)
         return eyeButton
     }
-    
+
     @objc func togglePasswordVisibility(sender: UIButton) {
         guard let textField = sender.superview as? UITextField else { return }
-        
+
         textField.isSecureTextEntry.toggle()
         sender.isSelected = !textField.isSecureTextEntry
     }
@@ -70,9 +77,10 @@ extension UIViewController {
         view.endEditing(true)
     }
 
-    func setRootViewController(_ viewController: UIViewController, animated: Bool) {
+    func setRootViewController(_ viewController: UIViewController,
+                               animated: Bool) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        
+
         if animated {
             UIView.transition(with: appDelegate.window!, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 appDelegate.window?.rootViewController = viewController

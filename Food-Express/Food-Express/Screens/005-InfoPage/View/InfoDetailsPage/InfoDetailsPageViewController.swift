@@ -18,27 +18,23 @@ protocol InfoDetailsPageInterface {
 }
 
 final class InfoDetailsPageViewController: UIViewController {
-    
+
     @IBOutlet private weak var infoContentLbl: UILabel!
     @IBOutlet private weak var infoContentTitleLbl: UILabel!
     @IBOutlet private weak var scrollView: UIScrollView!
-    
+
     private var infoDetailType: InfoDetailType?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUIForDetailType()
     }
-    
+
     private func updateUIForDetailType() {
         guard let type = infoDetailType else { return }
-        
+
         scrollView.setContentOffset(.zero, animated: true)
-        
+
         switch type {
         case .privacyPolicy:
             infoContentLbl.setHTML(from: AboutUsConstants.privacyPolicy)

@@ -43,7 +43,7 @@ struct ViewBasketModel {
 
 struct AddFoodBasketParameters {
     let yemekAdi, yemekResimAdi, yemekFiyat, yemekSiparisAdet: String
-    
+
     func toDict() -> [String: String] {
         return [
             "yemek_adi": yemekAdi,

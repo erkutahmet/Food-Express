@@ -19,9 +19,9 @@ protocol DetailsViewInterface: AnyObject {
 }
 
 final class DetailsFoodViewController: UIViewController {
-    
+
     private let foodViewModel: FoodViewModel
-    
+
     @IBOutlet private weak var foodNameLbl: UILabel!
     @IBOutlet private weak var foodPriceLbl: UILabel!
     @IBOutlet private weak var foodImageView: UIImageView!
@@ -40,11 +40,11 @@ final class DetailsFoodViewController: UIViewController {
         self.foodViewModel = foodViewModel
         super.init(nibName: "DetailsFoodViewController", bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
@@ -55,17 +55,18 @@ final class DetailsFoodViewController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
     }
-    
+
     @IBAction private func favoriteBtnClicked(_ sender: Any) {
         if !viewModel.isLiked {
             favoriteBtn.setImage(UIImage(named: "favorite_clicked"), for: .normal)
-            viewModel.addToFavorite(newFavorite: Favorites(food_name: foodViewModel.yemekAdi, food_image: foodViewModel.yemekResimAdi))
+            viewModel.addToFavorite(newFavorite: Favorites(food_name: foodViewModel.yemekAdi,
+                                                           food_image: foodViewModel.yemekResimAdi))
         } else {
             favoriteBtn.setImage(UIImage(named: "favorite_unclicked"), for: .normal)
             viewModel.deleteFromFavorite(foodName: foodViewModel.yemekAdi)
         }
     }
-    
+
     @IBAction private func addToBasketBtnClicked(_ sender: UIButton) {
         viewModel.addFoodToBasket(parameters: getParameters())
         sender.disableTemporarilyWithTapEffect()
@@ -95,7 +96,7 @@ extension DetailsFoodViewController: DetailsViewInterface {
         addToBasketBtn.layer.borderColor = UIColor(hex: "#808080").cgColor
         addToBasketBtn.layer.borderWidth = 1.0
     }
-    
+
     func setFavoriteBtnUI() {
         viewModel.isFavorite(foodName: foodViewModel.yemekAdi)
     }

@@ -48,10 +48,14 @@ extension BasketPageViewController: UICollectionViewDataSource {
         basketCollectionView.isHidden = isDataSourceEmpty
         return isDataSourceEmpty ? 0 : cellDataSource.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCollectionViewCell.identifier, for: indexPath) as? BasketCollectionViewCell else { return UICollectionViewCell() }
-        
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BasketCollectionViewCell.identifier,
+                                                            for: indexPath) as? BasketCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+
         let items = self.cellDataSource[indexPath.item]
         cell.setupCell(viewModel: items)
         cell.setupCellUI()
@@ -63,7 +67,7 @@ extension BasketPageViewController: UICollectionViewDataSource {
 extension BasketPageViewController: UICollectionViewDelegate { }
 
 extension BasketPageViewController: BasketCollectionViewDelegate {
-    
+
     func didRequestDelete(_ cell: BasketCollectionViewCell) {
         if let indexPath = basketCollectionView.indexPath(for: cell) {
             viewModel.removeItem(at: indexPath)
@@ -72,11 +76,15 @@ extension BasketPageViewController: BasketCollectionViewDelegate {
 }
 
 extension BasketPageViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width - 48, height: 120)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat { 28 }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat { 28 }
 }
 
 extension BasketPageViewController: BasketPageViewInterface {
@@ -84,18 +92,17 @@ extension BasketPageViewController: BasketPageViewInterface {
     func bindViewModel() {
         viewModel.cellDataSource.bind { [weak self] items in
             guard let self = self, let basketItem = items else { return }
-            
+
             if basketItem.isEmpty {
                 totalLabel.text = "Total: 0₺"
             } else {
                 totalLabel.text = "Total: \(viewModel.getTotalPrice())₺"
             }
-            
             self.cellDataSource = basketItem
             self.reloadData()
         }
     }
-    
+
     func reloadData() {
         DispatchQueue.main.async {
             self.basketCollectionView.reloadData()
@@ -105,7 +112,8 @@ extension BasketPageViewController: BasketPageViewInterface {
     func setDelegateUI() {
         basketCollectionView.delegate = self
         basketCollectionView.dataSource = self
-        basketCollectionView.register(BasketCollectionViewCell.register(), forCellWithReuseIdentifier: BasketCollectionViewCell.identifier)
+        basketCollectionView.register(BasketCollectionViewCell.register(),
+                                      forCellWithReuseIdentifier: BasketCollectionViewCell.identifier)
     }
 
     func setUIDesign() {

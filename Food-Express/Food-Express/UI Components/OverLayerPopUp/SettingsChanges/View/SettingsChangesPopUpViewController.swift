@@ -53,11 +53,11 @@ final class SettingsChangesPopUpViewController: UIViewController {
         super.init(nibName: "SettingsChangesPopUpViewController", bundle: nil)
         self.modalPresentationStyle = .overFullScreen
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func show() {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
             self.backView.alpha = 1
@@ -74,12 +74,12 @@ final class SettingsChangesPopUpViewController: UIViewController {
             self.removeFromParent()
         }
     }
-    
+
     @IBAction private func saveChangesBtnClicked(_ sender: UIButton) {
         guard let popUpType = popUpType else { return }
-        
+
         setButtonAvailable(is: false)
-        
+
         switch popUpType {
         case .email:
             viewModel.fetchUserInfo(from: .email)
@@ -102,7 +102,7 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
             }
         }
     }
-    
+
     func showDoneAlert(title: String, message: String) {
         self.errorShowAlert(title: title, message: message) {
             self.setButtonAvailable(is: true)
@@ -139,52 +139,52 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
     }
 
     func validateEmailFields(currentUserMail: String) -> (isValid: Bool, errorMessage: String?) {
-        
+
         guard let oldEmail = oldinfoTextField.text, !oldEmail.isEmpty, EmailValidator.isValidEmail(oldEmail) else {
             return (false, "Please enter your old email.")
         }
-        
+
         guard EmailValidator.isValidEmail(oldEmail) else {
             return (false, "Please enter a vaild email.\n(Old mail)")
         }
-        
+
         guard oldEmail == currentUserMail else {
             return (false, "Current email does not match.")
         }
-        
+
         guard let newEmail = newinfoTextField.text, !newEmail.isEmpty else {
             return (false, "Please enter your new email.")
         }
-        
+
         guard EmailValidator.isValidEmail(newEmail) else {
             return (false, "Please enter a vaild email.\n(New mail)")
         }
-        
+
         return (true, nil)
     }
-    
+
     func validatePasswordFields(currentUserPassword: String) -> (isValid: Bool, errorMessage: String?) {
-        
+
         guard let oldPassword = oldinfoTextField.text, !oldPassword.isEmpty else {
             return (false, "Please enter your curent password.")
         }
-        
+
         guard oldPassword == currentUserPassword else {
             return (false, "Current password does not match.")
         }
-        
+
         guard let newPassword = newinfoTextField.text, !newPassword.isEmpty else {
             return (false, "Please enter your new password.")
         }
-        
+
         guard newPassword.count >= 6 else {
             return (false, "Password must be at least 6 characters long.")
         }
-        
+
         guard let confirmNewPassword = confirmNewinfoTextField.text, !confirmNewPassword.isEmpty else {
             return (false, "Please enter your new password again.")
         }
-        
+
         guard confirmNewPassword == newPassword else {
             return (false, "New passwords do not match.")
         }
@@ -192,7 +192,7 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
         guard oldPassword != newPassword else {
             return (false, "New password cannot be the same as the current password.")
         }
-        
+
         return (true, nil)
     }
 
@@ -204,7 +204,7 @@ extension SettingsChangesPopUpViewController: SettingsChangesPopUpViewInterface 
         self.saveChangesBtn.layer.cornerRadius = 12
         self.saveChangesBtn.layer.maskedCorners = [ .layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         setupDismissKeyboardOnTap()
-        
+
         let eyeButton = createEyeButton(action: #selector(togglePasswordVisibility))
         oldinfoTextField.rightView = eyeButton
         oldinfoTextField.rightViewMode = .always

@@ -9,7 +9,7 @@ import UIKit
 
 protocol CategoriesCellInterface {
     func setUpCell(name item: String, image item2: String)
-    static var identifier: String { get }
+    static var id: String { get }
     static func register() -> UINib
 }
 
@@ -25,12 +25,12 @@ final class CategoriesCollectionViewCell: UICollectionViewCell {
 }
 
 extension CategoriesCollectionViewCell: CategoriesCellInterface {
-    static var identifier: String {
-        return "categoryCell"
+    static var id: String {
+        return String(describing: self)
     }
-    
+
     static func register() -> UINib {
-        UINib(nibName: "CategoriesCollectionViewCell", bundle: nil)
+        UINib(nibName: String(describing: self), bundle: nil)
     }
 
     func setUpCell(name item: String, image item2: String) {

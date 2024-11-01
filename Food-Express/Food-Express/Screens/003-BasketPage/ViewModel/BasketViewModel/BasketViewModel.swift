@@ -9,7 +9,7 @@ import Foundation
 
 protocol BasketViewModelInterface {
     var view: BasketPageViewInterface? { get set }
-    
+
     func viewDidLoad()
     func viewWillAppear()
     func getFoodsInBasket()
@@ -47,14 +47,15 @@ extension BasketViewModel: BasketViewModelInterface {
     }
 
     func getFoodsInBasket() {
-        APICaller.getFoodInBasket() { [weak self] result in
+        APICaller.getFoodInBasket { [weak self] result in
             switch result {
             case .success(let data):
                 self?.dataSource = data
                 self?.mapCellData()
             case .failure:
                 self?.cellDataSource.value = []
-                self?.view?.showAlertFromVM(title: "Warning!", message: "Your cart is empty. There is nothing to display here.")
+                self?.view?.showAlertFromVM(title: "Warning!",
+                                            message: "Your cart is empty. There is nothing to display here.")
                 print("Error from -> (getFoodsInBasket)")
             }
         }
@@ -64,14 +65,15 @@ extension BasketViewModel: BasketViewModelInterface {
         guard let id = self.cellDataSource.value?[indexPath.item].sepetYemekID else { return }
         let parameterID = DeleteFoodBasketParameters(sepetYemekID: id)
         APICaller.deleteFoodFromBasket(parameters: parameterID) { [weak self] result in
-            
+
             guard let self = self else { return }
-            
+
             switch result {
             case .success(let data):
                 if data.success == 0 {
                     print("Deletion failed \(id)")
-                    self.view?.showAlertFromVM(title: "Error!", message: "An unexpected error occurred during the deletion process.")
+                    self.view?.showAlertFromVM(title: "Error!",
+                                               message: "An unexpected error occurred during the deletion process.")
                 } else {
                     print("Deletion succeed.")
                     self.view?.animateRemoval(at: indexPath)
@@ -80,13 +82,14 @@ extension BasketViewModel: BasketViewModelInterface {
                     }
                 }
             case .failure:
-                self.view?.showAlertFromVM(title: "Error!", message: "An unexpected error occurred during the deletion process.")
+                self.view?.showAlertFromVM(title: "Error!",
+                                           message: "An unexpected error occurred during the deletion process.")
                 print("Error from (deleteFoodFromBasket)")
             }
         }
     }
 
     func mapCellData() {
-        self.cellDataSource.value = self.dataSource?.sepet_yemekler?.compactMap( {ViewBasketModel(basket: $0)} ) ?? []
+        self.cellDataSource.value = self.dataSource?.sepet_yemekler?.compactMap({ViewBasketModel(basket: $0)}) ?? []
     }
 }

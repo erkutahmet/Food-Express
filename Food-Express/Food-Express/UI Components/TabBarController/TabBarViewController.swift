@@ -46,7 +46,7 @@ final class TabBarViewController: UITabBarController {
         let nav3 = UINavigationController(rootViewController: basketVC)
         let nav4 = UINavigationController(rootViewController: categoryVC)
         let nav5 = UINavigationController(rootViewController: infoVC)
-        
+
         viewControllers = [nav1, nav2, nav3, nav4, nav5]
 
         tabBar.unselectedItemTintColor = .systemGray

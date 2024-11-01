@@ -10,7 +10,6 @@ import UIKit
 extension UIButton {
     func disableTemporarilyWithTapEffect(duration: TimeInterval = 0.5) {
         guard isEnabled else { return }
-        
         isEnabled = false
 
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
@@ -21,9 +20,7 @@ extension UIButton {
     func changeButtonImageTemporarily(normalImageName: String, clickedImageName: String, duration: TimeInterval = 0.1) {
         let normalImage = UIImage(named: normalImageName)
         let clickedImage = UIImage(named: clickedImageName)
-        
         setImage(clickedImage, for: .normal)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
             self.setImage(normalImage, for: .normal)
         }

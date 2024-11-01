@@ -22,10 +22,6 @@ final class OnboardingCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var contentLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     override func prepareForReuse() {
         onboardingImageView.layer.removeAllAnimations()
         onboardingImageView.transform = .identity
@@ -36,7 +32,7 @@ extension OnboardingCollectionViewCell: OnboardingCollectionViewCellInterface {
     static var identifier: String {
         return String(describing: self)
     }
-    
+
     static func register() -> UINib {
         UINib(nibName: String(describing: self), bundle: nil)
     }

@@ -9,7 +9,7 @@ import Foundation
 
 protocol SignUpViewModelInterface {
     var view: SignUpViewInterface? { get set }
-    
+
     func viewDidLoad()
     func registerUser(data: UserModel, email: String, password: String)
 }
@@ -26,17 +26,22 @@ extension SignUpViewModel: SignUpViewModelInterface {
 
     func registerUser(data: UserModel, email: String, password: String) {
         APICaller.registerUser(data: data) { [weak self] errorMessage in
-            
+
             guard let self = self else { return }
-            
+
             if let message = errorMessage {
                 self.view?.showAlertFromVM(status: false, title: "Registration Error", message: message)
             } else {
-                APICaller.loginUser(email: email, password: password) { success, message in
+                APICaller.loginUser(email: email, password: password) { success, _ in
                     if success {
-                        self.view?.showAlertFromVM(status: true, title: "Registration Successful", message: "Your account has been successfully created. You can now start using the app.")
+                        self.view?.showAlertFromVM(status: true,
+                                                   title: "Registration Successful",
+                                                   message:
+                                                    "Now you can start using the app.")
                     } else {
-                        self.view?.showAlertFromVM(status: false, title: "Unkown Error", message: "An unknown error occurred. Please try again.")
+                        self.view?.showAlertFromVM(status: false,
+                                                   title: "Unkown Error",
+                                                   message: "An unknown error occurred. Please try again.")
                     }
                 }
             }

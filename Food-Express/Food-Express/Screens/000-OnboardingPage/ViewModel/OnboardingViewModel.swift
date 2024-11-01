@@ -9,7 +9,7 @@ import Foundation
 
 protocol OnboardingViewModelInterface {
     var view: OnbardingViewInterface? { get set }
-    
+
     func viewDidLoad()
     func setUpCell(at indexPath: IndexPath) -> OnboardingModel
     func numberOfItems() -> Int

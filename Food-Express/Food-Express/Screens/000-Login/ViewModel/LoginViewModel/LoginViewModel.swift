@@ -9,7 +9,7 @@ import Foundation
 
 protocol LoginViewModelInterface {
     var view: LoginViewInterface? { get set }
-    
+
     func viewDidLoad()
     func loginUser(email: String, password: String)
 }
@@ -19,7 +19,7 @@ final class LoginViewModel {
 }
 
 extension LoginViewModel: LoginViewModelInterface {
-    
+
     func viewDidLoad() {
         view?.setUI()
         view?.setupPasswordField()
@@ -27,13 +27,17 @@ extension LoginViewModel: LoginViewModelInterface {
 
     func loginUser(email: String, password: String) {
         APICaller.loginUser(email: email, password: password) { [weak self] success, message in
-            
+
             guard let self = self else { return }
-            
+
             if success {
-                self.view?.showAlertFromVM(status: true, title: "Welcome!", message:  message ?? "Logging in...")
+                self.view?.showAlertFromVM(status: true,
+                                           title: "Welcome!",
+                                           message: message ?? "Logging in...")
             } else {
-                self.view?.showAlertFromVM(status: false, title: "Error", message: message ?? "Uknown error.")
+                self.view?.showAlertFromVM(status: false,
+                                           title: "Error",
+                                           message: message ?? "Uknown error.")
             }
         }
     }

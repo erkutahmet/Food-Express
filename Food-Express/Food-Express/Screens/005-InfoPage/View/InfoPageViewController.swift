@@ -37,21 +37,21 @@ final class InfoPageViewController: UIViewController {
 
 extension InfoPageViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int { 2 }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         section == 0 ? list.count : list2.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
-        
+
         cell.textLabel?.text = indexPath.section == 0 ? list[indexPath.row] : list2[indexPath.row]
 
         let toggleSwitch = UISwitch()
         let savedStyle = UserDefaults.standard.string(forKey: "userInterfaceStyle") ?? "light"
         toggleSwitch.isOn = (savedStyle == "dark")
         toggleSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
-        
+
         if cell.textLabel?.text == "Dark mode" {
             cell.selectionStyle = .none
             cell.accessoryView = toggleSwitch
@@ -61,7 +61,6 @@ extension InfoPageViewController: UITableViewDataSource {
         } else {
             cell.accessoryType = .disclosureIndicator
         }
-        
         return cell
     }
 
@@ -70,7 +69,10 @@ extension InfoPageViewController: UITableViewDataSource {
 
         let newStyle: UIUserInterfaceStyle = sender.isOn ? .dark : .light
 
-        UIView.transition(with: windowScene.windows.first!, duration: 0.5, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: windowScene.windows.first!,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: {
             windowScene.windows.forEach { window in
                 window.overrideUserInterfaceStyle = newStyle
             }
@@ -79,40 +81,40 @@ extension InfoPageViewController: UITableViewDataSource {
         })
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView,
+                   viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = UIColor.systemBackground
-        
+
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.systemFont(ofSize: 18)
         titleLabel.textColor = .systemGray2
-        
+
         if section == 0 {
             titleLabel.text = "Settings"
         } else {
             titleLabel.text = "About"
         }
-        
+
         headerView.addSubview(titleLabel)
-        
+
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
             titleLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor)
         ])
-        
+
         let separatorView = UIView()
         separatorView.backgroundColor = .systemGray5
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(separatorView)
-        
+
         NSLayoutConstraint.activate([
             separatorView.heightAnchor.constraint(equalToConstant: 1),
             separatorView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
             separatorView.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
             separatorView.topAnchor.constraint(equalTo: headerView.topAnchor)
         ])
-        
         return headerView
     }
 
@@ -125,14 +127,14 @@ extension InfoPageViewController: UITableViewDataSource {
 extension InfoPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 changesOverlayPopUp.appear(sender: self, popUpType: .email)
             } else if indexPath.row == 1 {
                 changesOverlayPopUp.appear(sender: self, popUpType: .password)
             }
-        } else if indexPath.section == 1{
+        } else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 infoDetailsPage.appear(sender: self, detailType: .aboutUs)
             } else if indexPath.row == 1 {
@@ -152,7 +154,7 @@ extension InfoPageViewController: UITableViewDelegate {
 }
 
 extension InfoPageViewController: InfoPageViewInterface {
-    
+
     func setUI() {
         settingsTableView.dataSource = self
         settingsTableView.delegate = self
@@ -165,7 +167,6 @@ extension InfoPageViewController: InfoPageViewInterface {
         navigationItem.backBarButtonItem = backItem
     }
 
-    
     func showAlertFromVM(status: Bool, title: String, message: String) {
         if status {
             self.successShowAlert(title: title, message: message) {

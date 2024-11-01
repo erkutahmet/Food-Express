@@ -10,7 +10,7 @@ import UIKit
 
 struct FoodCellColors {
     let color: UIColor
-    
+
     static let backgroundColors: [FoodCellColors] = [
         FoodCellColors(color: UIColor(hex: "E77CE3")),
         FoodCellColors(color: UIColor(hex: "7CA7E7")),

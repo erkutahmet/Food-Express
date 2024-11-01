@@ -18,7 +18,6 @@ final class FavoritesPageViewController: UIViewController {
 
     @IBOutlet private weak var favoritesTableView: UITableView!
     private var selectedIndices: [Int: Bool] = [:]
-    
     private lazy var viewModel = FavoritesViewModel()
     private var cellDataSource = [FavoritesModel]()
 
@@ -40,14 +39,17 @@ extension FavoritesPageViewController: UITableViewDataSource, UITableViewDelegat
         favoritesTableView.isHidden = isDataSourceEmpty
         return isDataSourceEmpty ? 0 : cellDataSource.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as! FavoriteTableViewCell
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier,
+                                                       for: indexPath) as? FavoriteTableViewCell else {
+            return UITableViewCell()
+        }
+
         let favorites = cellDataSource[indexPath.row]
         cell.setupCell(viewModel: favorites, at: indexPath)
         cell.setCellUI()
-        
+
         return cell
     }
 
@@ -61,18 +63,19 @@ extension FavoritesPageViewController: FavoritesViewInterface {
     func setUI() {
         favoritesTableView.delegate = self
         favoritesTableView.dataSource = self
-        favoritesTableView.register(FavoriteTableViewCell.register(), forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+        favoritesTableView.register(FavoriteTableViewCell.register(),
+                                    forCellReuseIdentifier: FavoriteTableViewCell.identifier)
     }
-    
+
     func bindViewModel() {
         viewModel.favorites.bind { [weak self] favorites in
             guard let self = self, let favorite = favorites else { return }
-            
+
             self.cellDataSource = favorite
             self.reloadData()
         }
     }
-    
+
     func reloadData() {
         DispatchQueue.main.async {
             self.favoritesTableView.reloadData()

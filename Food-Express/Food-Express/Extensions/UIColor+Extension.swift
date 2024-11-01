@@ -10,7 +10,6 @@ import UIKit
 extension UIColor {
     convenience init(hex: String) {
         let scanner = Scanner(string: hex)
-        // '#' karakterini atlıyoruz
         if hex.hasPrefix("#") {
             scanner.currentIndex = hex.index(after: hex.startIndex)
         }

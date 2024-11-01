@@ -19,10 +19,10 @@ protocol MainViewInterface: AnyObject {
 }
 
 final class MainPageViewController: UIViewController {
-    
+
     @IBOutlet private weak var searchTextField: UITextField!
     @IBOutlet private weak var foodCollectionView: UICollectionView!
-    
+
     private lazy var viewModel = MainViewModel()
     private var cellDataSource = [FoodViewModel]()
 
@@ -35,7 +35,7 @@ final class MainPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         viewModel.viewWillAppear()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         viewModel.viewDidAppear()
     }
@@ -50,14 +50,16 @@ extension MainPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         guard indexPath.item < viewModel.numberOfItems(),
-              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCollectionViewCell.identifier, for: indexPath) as? FoodCollectionViewCell else {
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCollectionViewCell.identifier,
+                                                            for: indexPath) as? FoodCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
+
         let food = self.cellDataSource[indexPath.item]
         cell.setupCellShadowView(index: indexPath.item)
         cell.setupCell(viewModel: food)
@@ -73,7 +75,9 @@ extension MainPageViewController: UICollectionViewDelegate {
 }
 
 extension MainPageViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.frame.width / 2.1, height: 200)
     }
 }
@@ -87,16 +91,16 @@ extension MainPageViewController: MainViewInterface {
             self.navigationController?.pushViewController(detailFoodViewController, animated: true)
         }
     }
-    
+
     func bindViewModel() {
         viewModel.cellDataSource.bind { [weak self] yemekler in
             guard let self = self, let foods = yemekler else { return }
-            
+
             self.cellDataSource = foods
             self.reloadData()
         }
     }
-    
+
     func reloadData() {
         DispatchQueue.main.async {
             self.foodCollectionView.reloadData()
@@ -113,7 +117,8 @@ extension MainPageViewController: MainViewInterface {
     func setDelegateUI() {
         foodCollectionView.delegate = self
         foodCollectionView.dataSource = self
-        foodCollectionView.register(FoodCollectionViewCell.register(), forCellWithReuseIdentifier: FoodCollectionViewCell.identifier)
+        foodCollectionView.register(FoodCollectionViewCell.register(),
+                                    forCellWithReuseIdentifier: FoodCollectionViewCell.identifier)
     }
 
     func setDarkModeUI() {
@@ -124,13 +129,13 @@ extension MainPageViewController: MainViewInterface {
             searchTextField.backgroundColor = UIColor(hex: "F4F4F4")
         }
     }
-    
+
     func setUIForSearch() {
         let searchIcon = UIImageView(frame: CGRect(x: 10, y: 0, width: 20, height: 20))
         searchIcon.image = UIImage(systemName: "magnifyingglass")
         searchIcon.contentMode = .scaleAspectFit
         searchIcon.tintColor = .systemGray
-        
+
         let iconContainerLeft = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 20))
         iconContainerLeft.addSubview(searchIcon)
 

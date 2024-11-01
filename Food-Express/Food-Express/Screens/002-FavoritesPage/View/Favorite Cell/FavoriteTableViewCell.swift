@@ -23,21 +23,18 @@ final class FavoriteTableViewCell: UITableViewCell {
     @IBOutlet private weak var bottomView: UIView!
     @IBOutlet private weak var favoritesContentView: UIView!
     @IBOutlet private weak var backGroundBlurView: UIView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+
 }
 
 extension FavoriteTableViewCell: FavoriteCellInterface {
     static var identifier: String {
-        return "favoriteCell"
+        return String(describing: self)
     }
-    
+
     static func register() -> UINib {
-        UINib(nibName: "FavoriteTableViewCell", bundle: nil)
+        UINib(nibName: String(describing: self), bundle: nil)
     }
-    
+
     func setupCell(viewModel: FavoritesModel, at indexPath: IndexPath) {
         self.favoriteNameLbl.text = viewModel.foodName
         self.favoriteImageView.af.setImage(withURL: viewModel.foodImageUrl)
@@ -47,7 +44,7 @@ extension FavoriteTableViewCell: FavoriteCellInterface {
     func setCellUI() {
         favoriteImageView.layer.cornerRadius = 16
         favoriteImageView.layer.masksToBounds = true
-        
+
         bottomView.layer.cornerRadius = 16
         bottomView.layer.maskedCorners = [ .layerMinXMaxYCorner, .layerMaxXMaxYCorner ]
         bottomView.layer.borderWidth = 1
@@ -55,7 +52,7 @@ extension FavoriteTableViewCell: FavoriteCellInterface {
         bottomView.layer.masksToBounds = true
 
         backGroundBlurView.layer.cornerRadius = 16
-        
+
         favoritesContentView.layer.cornerRadius = 16
         favoritesContentView.layer.borderWidth = 2
         favoritesContentView.layer.borderColor = UIColor(named: "darkModeSpecialReverse")?.cgColor
